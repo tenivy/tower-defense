@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://d3hhl01wtkq11"]
+
+[ext_resource type="Script" uid="uid://b3ctcooiuv61y" path="res://defender.gd" id="1_hl4wy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4ryxl"]
+radius = 100.0
+
+[node name="Defender" type="Node2D" unique_id=1499472190]
+script = ExtResource("1_hl4wy")
+
+[node name="Body" type="ColorRect" parent="." unique_id=736646685]
+offset_left = -15.0
+offset_top = -15.0
+offset_right = 15.0
+offset_bottom = 15.0
+color = Color(0.24986163, 0.50512916, 0.6783979, 1)
+
+[node name="AttackRange" type="Area2D" parent="." unique_id=633180686]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange" unique_id=642439674]
+shape = SubResource("CircleShape2D_4ryxl")

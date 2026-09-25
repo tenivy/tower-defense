@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://bs72lhuwc7rcr"]
+
+[ext_resource type="Script" uid="uid://4m04d3dtceh8" path="res://scripts/main.gd" id="1_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://d3hhl01wtkq11" path="res://defender.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://d2r3d4jv3a2xr" path="res://Enemy.tscn" id="3_h2yge"]
+
+[node name="Main" type="Node2D" unique_id=392727660]
+position = Vector2(21, 38)
+script = ExtResource("1_0xm2m")
+defender_scene = ExtResource("1_ig7tw")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1410151744]
+offset_left = -18.181816
+offset_top = -38.38384
+offset_right = 1261.8182
+offset_bottom = 681.61615
+color = Color(0.23855989, 0.47263917, 0.21759753, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Map" type="Node2D" parent="." unique_id=14236331]
+
+[node name="EnemyPath" type="Line2D" parent="Map" unique_id=1198063913]
+position = Vector2(5822.7183, 970.5163)
+scale = Vector2(20.414494, 19.642065)
+points = PackedVector2Array(-281.64883, -18.303387, -234.37909, -18.012379, -225.84671, -22.98935, -226.9296, -29.951065, -274.30112, -31.591196, -278.6118, -38.616932, -277.04428, -45.13356, -257.22668, -48.02101, -236.60132, -47.13011)
+width = 2.0
+default_color = Color(0.4, 0.4, 0.4, 1)
+
+[node name="Castle" type="ColorRect" parent="Map" unique_id=923376164]
+offset_left = 1025.4055
+offset_top = -18.36547
+offset_right = 1250.8927
+offset_bottom = 232.6293
+color = Color(0.30323282, 0.30323282, 0.30323282, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Map" unique_id=1929383278]
+offset_left = -13.263952
+offset_top = 539.7408
+offset_right = 133.65982
+offset_bottom = 672.38025
+color = Color(0.7073095, 0.26948652, 0.18463153, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Defenders" type="Node2D" parent="." unique_id=614140325]
+
+[node name="Shop" type="Panel" parent="." unique_id=773151431]
+offset_left = -16.0
+offset_top = -37.0
+offset_right = 105.0
+offset_bottom = 528.0
+
+[node name="KnightButton" type="Button" parent="Shop" unique_id=835927241]
+layout_mode = 0
+offset_top = 13.0
+offset_right = 119.0
+offset_bottom = 75.0
+text = "Knight"
+
+[node name="GoldLabel" type="Label" parent="." unique_id=366469932]
+offset_left = 6.0
+offset_top = 501.0
+offset_right = 83.0
+offset_bottom = 527.0
+text = "Gold: 100"
+
+[node name="Enemies" type="Node2D" parent="." unique_id=846401855]
+
+[node name="Enemy" parent="Enemies" unique_id=884376071 instance=ExtResource("3_h2yge")]
+
+[connection signal="pressed" from="Shop/KnightButton" to="." method="_on_knight_button_pressed"]

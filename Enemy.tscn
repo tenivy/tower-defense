@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://d2r3d4jv3a2xr"]
+
+[ext_resource type="Script" uid="uid://3cjsua3yd4yu" path="res://enemy.gd" id="1_tt7e2"]
+
+[node name="Enemy" type="Node2D" unique_id=884376071 groups=["enemies"]]
+script = ExtResource("1_tt7e2")
+
+[node name="Body" type="ColorRect" parent="." unique_id=1322198080]
+offset_left = -15.0
+offset_top = -15.0
+offset_right = 15.0
+offset_bottom = 15.0

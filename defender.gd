@@ -1,5 +1,7 @@
 extends Node2D
 
+var is_preview: bool = false
+
 @export var damage: int = 20
 @export var attack_cooldown: float = 1.0
 @export var attack_range: float = 100.0
@@ -8,6 +10,9 @@ var attack_timer: float = 0.0
 
 
 func _process(delta):
+	if is_preview:
+		return
+
 	if attack_timer > 0:
 		attack_timer -= delta
 		return

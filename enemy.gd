@@ -1,14 +1,17 @@
 extends Node2D
 
-func _ready():
-	add_to_group("enemies")
 
 @export var speed: float = 100.0
 @export var health: int = 100
 @export var reward: int = 10
+@export var castle_damage: int = 10
 
 var path_points: PackedVector2Array
 var current_point: int = 0
+
+
+func _ready():
+	add_to_group("enemies")
 
 
 func setup_path(points: PackedVector2Array):
@@ -24,6 +27,7 @@ func _process(delta):
 		return
 
 	if current_point >= path_points.size():
+		reach_castle()
 		return
 
 	var target = path_points[current_point]
@@ -33,9 +37,17 @@ func _process(delta):
 
 	if distance <= speed * delta:
 		global_position = target
+
+		# Если это последняя точка пути —
+		# враг достиг замка
+		if current_point == path_points.size() - 1:
+			reach_castle()
+			return
+
 		current_point += 1
 	else:
 		global_position += direction * speed * delta
+
 
 func take_damage(amount: int):
 	health -= amount
@@ -45,5 +57,26 @@ func take_damage(amount: int):
 	if health <= 0:
 		die()
 
+
 func die():
+	var main = get_tree().current_scene
+
+	if main.has_method("add_gold"):
+		main.add_gold(reward)
+
+	if main.has_method("enemy_finished"):
+		main.enemy_finished()
+
+	queue_free()
+
+
+func reach_castle():
+	var main = get_tree().current_scene
+
+	if main.has_method("damage_castle"):
+		main.damage_castle(castle_damage)
+
+	if main.has_method("enemy_finished"):
+		main.enemy_finished()
+
 	queue_free()

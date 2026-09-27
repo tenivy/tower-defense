@@ -7,9 +7,21 @@ extends Node2D
 @onready var defenders = $Defenders
 @onready var enemy_path = $Map/EnemyPath
 @onready var gold_label = $GoldLabel
+@onready var castle_health_bar = $CastleHealthBar
 
 var preview_defender
 var selected_defender = false
+
+var castle_health = 100
+var castle_max_health = 100
+
+var current_round = 0
+var enemies_to_spawn = 5
+var enemies_spawned = 0
+var enemies_remaining = 0
+
+var spawn_interval = 1.5
+var round_reward = 50
 
 var gold = 100
 var knight_cost = 20
@@ -20,7 +32,7 @@ func update_gold_label():
 func _ready():
 	print("Игра запущена")
 	update_gold_label()
-	start_enemy()
+	start_round()
 
 func select_knight():
 	selected_defender = true
@@ -29,6 +41,7 @@ func select_knight():
 		preview_defender.queue_free()
 
 	preview_defender = defender_scene.instantiate()
+	preview_defender.is_preview = true
 	add_child(preview_defender)
 
 func _process(_delta):
@@ -36,10 +49,10 @@ func _process(_delta):
 		update_preview()
 
 func update_preview():
-	var position = get_global_mouse_position()
-	preview_defender.position = position
+	var mouse_position = get_global_mouse_position()
+	preview_defender.global_position = mouse_position
 
-	var can_place = can_place_defender(position)
+	var can_place = can_place_defender(mouse_position)
 
 	var body = preview_defender.get_node("Body")
 
@@ -73,11 +86,28 @@ func place_defender(position: Vector2):
 	update_gold_label()
 
 	var defender = defender_scene.instantiate()
-	defender.position = position
 	defenders.add_child(defender)
+	defender.global_position = position
 
 	print("Рыцарь установлен. Золото: ", gold)
 
+func damage_castle(amount: int):
+	castle_health -= amount
+
+	if castle_health < 0:
+		castle_health = 0
+
+	print("Замок получил урон: ", amount, " | HP: ", castle_health)
+
+	if castle_health_bar:
+		castle_health_bar.value = castle_health
+
+	if castle_health <= 0:
+		game_over()
+
+func game_over():
+	print("ПОРАЖЕНИЕ! Замок разрушен.")
+	get_tree().paused = true
 
 func can_place_defender(position: Vector2) -> bool:
 	if gold < knight_cost:
@@ -91,7 +121,6 @@ func can_place_defender(position: Vector2) -> bool:
 
 	return true
 
-
 func is_too_close_to_defender(position: Vector2) -> bool:
 	for defender in defenders.get_children():
 		var distance = position.distance_to(defender.position)
@@ -100,7 +129,6 @@ func is_too_close_to_defender(position: Vector2) -> bool:
 			return true
 
 	return false
-
 
 func is_too_close_to_path(position: Vector2) -> bool:
 	var path = $Map/EnemyPath
@@ -128,11 +156,13 @@ func is_too_close_to_path(position: Vector2) -> bool:
 
 	return false
 
-
 func _on_knight_button_pressed():
 	select_knight()
 
-func start_enemy():
+func spawn_enemy():
+	if enemies_spawned >= enemies_to_spawn:
+		return
+
 	var enemy_scene = preload("res://Enemy.tscn")
 
 	var enemy = enemy_scene.instantiate()
@@ -140,3 +170,49 @@ func start_enemy():
 
 	var points = enemy_path.get_global_transform() * enemy_path.points
 	enemy.setup_path(points)
+
+	enemies_spawned += 1
+
+	print("Создан враг ", enemies_spawned, " из ", enemies_to_spawn)
+
+func start_round():
+	current_round += 1
+
+	enemies_to_spawn = 5 + (current_round - 1) * 2
+	enemies_spawned = 0
+	enemies_remaining = enemies_to_spawn
+
+	print("Начался раунд ", current_round)
+	print("Врагов: ", enemies_to_spawn)
+
+	spawn_enemy()
+
+	if enemies_spawned < enemies_to_spawn:
+		$SpawnTimer.start()
+
+func _on_spawn_timer_timeout():
+	if enemies_spawned < enemies_to_spawn:
+		spawn_enemy()
+
+	if enemies_spawned >= enemies_to_spawn:
+		$SpawnTimer.stop()
+
+func add_gold(amount: int):
+	gold += amount
+	update_gold_label()
+
+	print("Получено золота: ", amount, " | Всего: ", gold)
+
+func enemy_finished():
+	enemies_remaining -= 1
+
+	print("Осталось врагов: ", enemies_remaining)
+
+	if enemies_remaining <= 0:
+		end_round()
+
+func end_round():
+	add_gold(round_reward)
+
+	print("Раунд ", current_round, " завершён!")
+	print("Награда за раунд: ", round_reward)

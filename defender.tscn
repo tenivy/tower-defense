@@ -14,6 +14,7 @@ offset_top = -15.0
 offset_right = 15.0
 offset_bottom = 15.0
 color = Color(0.24986163, 0.50512916, 0.6783979, 1)
+metadata/_edit_use_anchors_ = true
 
 [node name="AttackRange" type="Area2D" parent="." unique_id=633180686]
 

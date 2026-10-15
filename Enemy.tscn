@@ -1,6 +1,22 @@
 [gd_scene format=3 uid="uid://d2r3d4jv3a2xr"]
 
 [ext_resource type="Script" uid="uid://3cjsua3yd4yu" path="res://enemy.gd" id="1_tt7e2"]
+[ext_resource type="Texture2D" uid="uid://bju67yo1777rc" path="res://assets/5.png" id="2_2hac7"]
+[ext_resource type="Texture2D" uid="uid://dhnr0777rbjq6" path="res://assets/6.png" id="3_e6d4v"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mvgdh"]
+animations = [{
+"frames": [{
+"duration": 1.5,
+"texture": ExtResource("2_2hac7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_e6d4v")
+}],
+"loop": 1,
+"name": &"goblin",
+"speed": 5.0
+}]
 
 [node name="Enemy" type="Node2D" unique_id=884376071 groups=["enemies"]]
 script = ExtResource("1_tt7e2")
@@ -10,4 +26,11 @@ offset_left = -15.0
 offset_top = -15.0
 offset_right = 15.0
 offset_bottom = 15.0
-color = Color(1, 0.21568628, 1, 1)
+color = Color(1, 0.21568628, 1, 0)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Body" unique_id=564573966]
+position = Vector2(16, 7)
+scale = Vector2(0.154, 0.154)
+sprite_frames = SubResource("SpriteFrames_mvgdh")
+animation = &"goblin"
+speed_scale = 0.5

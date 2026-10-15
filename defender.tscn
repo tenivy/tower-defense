@@ -1,12 +1,20 @@
 [gd_scene format=3 uid="uid://d3hhl01wtkq11"]
 
 [ext_resource type="Script" uid="uid://b3ctcooiuv61y" path="res://defender.gd" id="1_hl4wy"]
+[ext_resource type="Texture2D" uid="uid://copq418disqpc" path="res://assets/photo/photo/knight/knight1/1.png0004.png" id="2_usyas"]
+[ext_resource type="Texture2D" uid="uid://sy3tci5sapeg" path="res://assets/photo/photo/knight/knight2/1.png0004.png" id="3_7uqmj"]
+[ext_resource type="Texture2D" uid="uid://cbl0l0ju26igs" path="res://assets/photo/photo/knight/knight3/1.png0004.png" id="4_bh4q3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4ryxl"]
 radius = 100.0
 
 [node name="Defender" type="Node2D" unique_id=1499472190]
+rotation = -1.5707964
 script = ExtResource("1_hl4wy")
+cost = 20
+texture_level_1 = ExtResource("2_usyas")
+texture_level_2 = ExtResource("3_7uqmj")
+texture_level_3 = ExtResource("4_bh4q3")
 
 [node name="Body" type="ColorRect" parent="." unique_id=736646685]
 offset_left = -15.0
@@ -20,3 +28,11 @@ metadata/_edit_use_anchors_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange" unique_id=642439674]
 shape = SubResource("CircleShape2D_4ryxl")
+
+[node name="AttackRange2" type="Line2D" parent="." unique_id=1206263078]
+
+[node name="KnightSprite" type="Sprite2D" parent="." unique_id=812856230]
+rotation = 1.5707964
+scale = Vector2(0.1, 0.1)
+
+[connection signal="input_event" from="AttackRange" to="." method="_on_attack_range_input_event"]

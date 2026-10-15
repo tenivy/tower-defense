@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://b1g7p1fcnmj8v"]
+
+[ext_resource type="Script" uid="uid://b3ctcooiuv61y" path="res://defender.gd" id="1_tgbv5"]
+[ext_resource type="Texture2D" uid="uid://kea7egfj0mrg" path="res://assets/photo/photo/archer/archer1/1.png0001.png" id="2_tgbv5"]
+[ext_resource type="Texture2D" uid="uid://3ykmm4gm2pg0" path="res://assets/photo/photo/archer/archer2/1.png0001.png" id="3_qnjvk"]
+[ext_resource type="Texture2D" uid="uid://b3q1p7k1i5oyc" path="res://assets/photo/photo/archer/archer3/1.png0001.png" id="4_ll7ho"]
+[ext_resource type="PackedScene" uid="uid://bndpjgm1ycjot" path="res://arrow.tscn" id="5_qnjvk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4ryxl"]
+radius = 100.0
+
+[node name="Archer" type="Node2D" unique_id=1499472190]
+rotation = -1.5707964
+script = ExtResource("1_tgbv5")
+damage_by_level = [12, 20, 32]
+attack_range_by_level = [300.0, 350.0, 450.0]
+attack_cooldown_by_level = [1.2, 1.05, 0.9]
+cost = 15
+damage = 12
+attack_cooldown = 1.2
+attack_range = 300.0
+texture_level_1 = ExtResource("2_tgbv5")
+texture_level_2 = ExtResource("3_qnjvk")
+texture_level_3 = ExtResource("4_ll7ho")
+uses_projectile = true
+projectile_scene = ExtResource("5_qnjvk")
+
+[node name="Body" type="ColorRect" parent="." unique_id=736646685]
+offset_left = -15.0
+offset_top = -15.0
+offset_right = 15.0
+offset_bottom = 15.0
+color = Color(0.24986163, 0.50512916, 0.6783979, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="AttackRange" type="Area2D" parent="." unique_id=633180686]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange" unique_id=642439674]
+shape = SubResource("CircleShape2D_4ryxl")
+
+[node name="AttackRange2" type="Line2D" parent="." unique_id=1206263078]
+
+[node name="KnightSprite" type="Sprite2D" parent="." unique_id=812856230]
+rotation = 1.5707964
+scale = Vector2(0.1, 0.1)
+
+[connection signal="input_event" from="AttackRange" to="." method="_on_attack_range_input_event"]

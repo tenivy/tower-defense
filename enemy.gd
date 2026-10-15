@@ -1,5 +1,6 @@
 extends Node2D
 
+@onready var animated_sprite = $Body/AnimatedSprite2D
 
 @export var speed: float = 100.0
 @export var health: int = 100
@@ -12,7 +13,7 @@ var current_point: int = 0
 
 func _ready():
 	add_to_group("enemies")
-
+	animated_sprite.play("goblin")
 
 func setup_path(points: PackedVector2Array):
 	path_points = points

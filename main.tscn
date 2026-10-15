@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://4m04d3dtceh8" path="res://scripts/main.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://d3hhl01wtkq11" path="res://defender.tscn" id="1_ig7tw"]
+[ext_resource type="Texture2D" uid="uid://dl4mj8h1vdh65" path="res://assets/IMG_2027.PNG" id="3_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://d2r3d4jv3a2xr" path="res://Enemy.tscn" id="3_h2yge"]
 
 [node name="Main" type="Node2D" unique_id=392727660]
@@ -20,25 +21,30 @@ metadata/_edit_use_anchors_ = true
 [node name="Map" type="Node2D" parent="." unique_id=14236331]
 
 [node name="EnemyPath" type="Line2D" parent="Map" unique_id=1198063913]
-position = Vector2(5822.7183, 970.5163)
-scale = Vector2(20.414494, 19.642065)
-points = PackedVector2Array(-281.64883, -18.303387, -234.37909, -18.012379, -225.80617, -22.987211, -226.9296, -29.951065, -274.30112, -31.591196, -278.6118, -38.616932, -277.04428, -45.13356, -257.22668, -48.02101, -236.60132, -47.13011)
+position = Vector2(5900.789, 985.4371)
+scale = Vector2(20.693808, 19.804764)
+points = PackedVector2Array(-275.57474, -44.624447, -278.12195, -16.979698, -244.76329, -17.183342, -248.45094, -25.353746, -270.1864, -27.111015, -269.61237, -38.081535, -260.16428, -35.569077, -256.73328, -29.307955, -247.26186, -29.105984, -261.33395, -47.907387, -235.32301, -48.11103, -236.00879, -36.04509, -230.10696, -35.97302, -230.15529, -28.449575)
 width = 2.0
 default_color = Color(0.4, 0.4, 0.4, 1)
 
 [node name="Castle" type="ColorRect" parent="Map" unique_id=923376164]
-offset_left = 1025.4055
-offset_top = -18.36547
-offset_right = 1250.8927
-offset_bottom = 232.6293
-color = Color(0.30323282, 0.30323282, 0.30323282, 1)
+offset_left = 1022.0
+offset_top = 442.0
+offset_right = 1247.487
+offset_bottom = 692.945
+color = Color(0.3019608, 0.3019608, 0.3019608, 0)
 metadata/_edit_use_anchors_ = true
 
+[node name="Sprite2D" type="Sprite2D" parent="Map/Castle" unique_id=1346091568]
+position = Vector2(115.99996, 117.00006)
+scale = Vector2(0.276, 0.284)
+texture = ExtResource("3_1bvp3")
+
 [node name="ColorRect" type="ColorRect" parent="Map" unique_id=1929383278]
-offset_left = -13.263952
-offset_top = 539.7408
-offset_right = 133.65982
-offset_bottom = 672.38025
+offset_left = 124.0
+offset_top = -16.0
+offset_right = 270.92377
+offset_bottom = 116.639465
 color = Color(0.7073095, 0.26948652, 0.18463153, 1)
 metadata/_edit_use_anchors_ = true
 
@@ -48,21 +54,44 @@ metadata/_edit_use_anchors_ = true
 offset_left = -16.0
 offset_top = -37.0
 offset_right = 105.0
-offset_bottom = 528.0
+offset_bottom = 504.0
 
 [node name="KnightButton" type="Button" parent="Shop" unique_id=835927241]
 layout_mode = 0
 offset_left = 1.0
-offset_top = 13.0
+offset_top = 59.0
 offset_right = 120.0
-offset_bottom = 75.0
+offset_bottom = 121.0
 text = "Knight"
+
+[node name="StartRoundButton" type="Button" parent="Shop" unique_id=873848239]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 26.0
+offset_right = 120.0
+offset_bottom = 57.0
+text = "Начать раунд"
+
+[node name="RoundLabel" type="Label" parent="Shop" unique_id=1990990604]
+layout_mode = 0
+offset_left = 29.0
+offset_right = 91.0
+offset_bottom = 23.0
+text = "Раунд 0"
+
+[node name="ArcherButton" type="Button" parent="Shop" unique_id=1126591665]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 123.0
+offset_right = 120.0
+offset_bottom = 185.0
+text = "Archer"
 
 [node name="GoldLabel" type="Label" parent="." unique_id=366469932]
 offset_left = 6.0
-offset_top = 501.0
+offset_top = 473.0
 offset_right = 83.0
-offset_bottom = 527.0
+offset_bottom = 499.0
 text = "Gold: 100"
 
 [node name="Enemies" type="Node2D" parent="." unique_id=846401855]
@@ -71,14 +100,45 @@ text = "Gold: 100"
 position = Vector2(-70, -13)
 
 [node name="CastleHealthBar" type="ProgressBar" parent="." unique_id=464556620]
-offset_left = 1116.0
-offset_top = 198.0
-offset_right = 1172.0
-offset_bottom = 226.0
+offset_left = 1110.0
+offset_top = 426.0
+offset_right = 1166.0
+offset_bottom = 454.0
 value = 100.0
 
 [node name="SpawnTimer" type="Timer" parent="." unique_id=2020780686]
 wait_time = 1.5
 
+[node name="DefenderPanel" type="Panel" parent="." unique_id=963906453]
+offset_left = 1017.0
+offset_top = -23.0
+offset_right = 1253.0
+offset_bottom = 47.0
+
+[node name="UpgradeButton" type="Button" parent="DefenderPanel" unique_id=2016242675]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 135.0
+offset_bottom = 64.0
+text = "Улучшить"
+
+[node name="SellButton" type="Button" parent="DefenderPanel" unique_id=133046661]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.020000001
+anchor_bottom = 0.057000004
+offset_left = 142.0
+offset_top = 4.0
+offset_right = 229.04
+offset_bottom = 60.01
+text = "Продать"
+
+[node name="Projectiles" type="Node2D" parent="." unique_id=1898441893]
+
 [connection signal="pressed" from="Shop/KnightButton" to="." method="_on_knight_button_pressed"]
+[connection signal="pressed" from="Shop/StartRoundButton" to="." method="_on_start_round_button_pressed"]
+[connection signal="pressed" from="Shop/ArcherButton" to="." method="select_archer"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
+[connection signal="pressed" from="DefenderPanel/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
+[connection signal="pressed" from="DefenderPanel/SellButton" to="." method="_on_sell_button_pressed"]

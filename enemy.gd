@@ -9,11 +9,11 @@ extends Node2D
 
 var path_points: PackedVector2Array
 var current_point: int = 0
-
+var current_facing: String = "down"
 
 func _ready():
 	add_to_group("enemies")
-	animated_sprite.play("goblin")
+	animated_sprite.play("walk_" + current_facing)
 
 func setup_path(points: PackedVector2Array):
 	path_points = points
@@ -34,6 +34,7 @@ func _process(delta):
 	var target = path_points[current_point]
 
 	var direction = global_position.direction_to(target)
+	update_facing(direction)
 	var distance = global_position.distance_to(target)
 
 	if distance <= speed * delta:
@@ -52,8 +53,6 @@ func _process(delta):
 
 func take_damage(amount: int):
 	health -= amount
-
-	print("Враг получил урон: ", amount, " | HP: ", health)
 
 	if health <= 0:
 		die()
@@ -81,3 +80,18 @@ func reach_castle():
 		main.enemy_finished()
 
 	queue_free()
+
+# Выбирает один из 4 ракурсов по направлению движения
+func update_facing(direction: Vector2):
+	var new_facing: String
+	if abs(direction.x) > abs(direction.y):
+		new_facing = "right" if direction.x > 0 else "left"
+	else:
+		new_facing = "down" if direction.y > 0 else "up"
+	if new_facing != current_facing:
+		current_facing = new_facing
+		animated_sprite.play("walk_" + current_facing)
+
+# Возвращает, насколько далеко враг продвинулся по дороге
+func get_progress() -> int:
+	return current_point

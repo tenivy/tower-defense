@@ -1,0 +1,157 @@
+[gd_scene format=3 uid="uid://g5se6rloehqy"]
+
+[ext_resource type="Script" uid="uid://3cjsua3yd4yu" path="res://enemy.gd" id="1_fljwg"]
+[ext_resource type="Texture2D" uid="uid://dxo4q75rpo8t3" path="res://assets/photo/goblin/front/1.png0002.png" id="2_b6esf"]
+[ext_resource type="Texture2D" uid="uid://dwhuyd761r1ay" path="res://assets/photo/goblin/front/1.png0005.png" id="3_062hh"]
+[ext_resource type="Texture2D" uid="uid://2roub50ivg47" path="res://assets/photo/goblin/front/1.png0008.png" id="4_mm4d8"]
+[ext_resource type="Texture2D" uid="uid://byl2b104472hr" path="res://assets/photo/goblin/front/1.png0011.png" id="5_nlapo"]
+[ext_resource type="Texture2D" uid="uid://bd6kyhd4molhg" path="res://assets/photo/goblin/front/1.png0014.png" id="6_a4qon"]
+[ext_resource type="Texture2D" uid="uid://c5isfcwvm8swr" path="res://assets/photo/goblin/front/1.png0017.png" id="7_tx7v3"]
+[ext_resource type="Texture2D" uid="uid://dulnca4ticqjk" path="res://assets/photo/goblin/front/6.png0021.png" id="8_rjcwc"]
+[ext_resource type="Texture2D" uid="uid://q6sj4ubhegex" path="res://assets/photo/goblin/right/1.png0002.png" id="9_mdkil"]
+[ext_resource type="Texture2D" uid="uid://bawc0pxjawrqs" path="res://assets/photo/goblin/right/1.png0005.png" id="10_cmkwh"]
+[ext_resource type="Texture2D" uid="uid://dm5vcwo3gedac" path="res://assets/photo/goblin/right/1.png0008.png" id="11_qc4mq"]
+[ext_resource type="Texture2D" uid="uid://di7gn5u6kh52e" path="res://assets/photo/goblin/right/1.png0011.png" id="12_8qbxi"]
+[ext_resource type="Texture2D" uid="uid://cqiqe6djdas5y" path="res://assets/photo/goblin/right/1.png0014.png" id="13_uwmun"]
+[ext_resource type="Texture2D" uid="uid://3gaqh4hnwn55" path="res://assets/photo/goblin/right/1.png0017.png" id="14_egxt4"]
+[ext_resource type="Texture2D" uid="uid://d236owyhtr1ri" path="res://assets/photo/goblin/right/6.png0021.png" id="15_2k3f7"]
+[ext_resource type="Texture2D" uid="uid://cof1awjv12gna" path="res://assets/photo/goblin/left/1.png0002.png" id="16_hxgt7"]
+[ext_resource type="Texture2D" uid="uid://cltd3nmap4g3s" path="res://assets/photo/goblin/left/1.png0005.png" id="17_itsfk"]
+[ext_resource type="Texture2D" uid="uid://d1o64juwoefep" path="res://assets/photo/goblin/left/1.png0008.png" id="18_howp5"]
+[ext_resource type="Texture2D" uid="uid://cpb8knn5rb776" path="res://assets/photo/goblin/left/1.png0011.png" id="19_xw2r8"]
+[ext_resource type="Texture2D" uid="uid://bg4yuslrcktdq" path="res://assets/photo/goblin/left/1.png0014.png" id="20_jnly4"]
+[ext_resource type="Texture2D" uid="uid://u7igon80xkr5" path="res://assets/photo/goblin/left/1.png0017.png" id="21_o3qn1"]
+[ext_resource type="Texture2D" uid="uid://b27jfjjf62p3q" path="res://assets/photo/goblin/left/6.png0021.png" id="22_l12o4"]
+[ext_resource type="Texture2D" uid="uid://b4cq4slvarhw2" path="res://assets/photo/goblin/back/1.png0002.png" id="23_nbc2i"]
+[ext_resource type="Texture2D" uid="uid://xjk62lbnli5e" path="res://assets/photo/goblin/back/1.png0005.png" id="24_a47db"]
+[ext_resource type="Texture2D" uid="uid://c4klg4743lnid" path="res://assets/photo/goblin/back/1.png0008.png" id="25_40v88"]
+[ext_resource type="Texture2D" uid="uid://bntm4m7bo40y5" path="res://assets/photo/goblin/back/1.png0011.png" id="26_b2tem"]
+[ext_resource type="Texture2D" uid="uid://dkffrpwr77jrx" path="res://assets/photo/goblin/back/1.png0014.png" id="27_mep1b"]
+[ext_resource type="Texture2D" uid="uid://d1cyjcoygtsmy" path="res://assets/photo/goblin/back/1.png0017.png" id="28_k2xkk"]
+[ext_resource type="Texture2D" uid="uid://d0ntaokpx3nty" path="res://assets/photo/goblin/back/6.png0021.png" id="29_fgmhb"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mvgdh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_b6esf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_062hh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_mm4d8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_nlapo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_a4qon")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_tx7v3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_rjcwc")
+}],
+"loop": 1,
+"name": &"walk_down",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_mdkil")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_cmkwh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_qc4mq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_8qbxi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_uwmun")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_egxt4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_2k3f7")
+}],
+"loop": 1,
+"name": &"walk_left",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("16_hxgt7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_itsfk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_howp5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_xw2r8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_jnly4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_o3qn1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_l12o4")
+}],
+"loop": 1,
+"name": &"walk_right",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("23_nbc2i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_a47db")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_40v88")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_b2tem")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_mep1b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_k2xkk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_fgmhb")
+}],
+"loop": 1,
+"name": &"walk_up",
+"speed": 8.0
+}]
+
+[node name="Goblin" type="Node2D" unique_id=884376071 groups=["enemies"]]
+script = ExtResource("1_fljwg")
+speed = 70.0
+health = 80
+
+[node name="Body" type="ColorRect" parent="." unique_id=1322198080]
+offset_left = -15.0
+offset_top = -15.0
+offset_right = 15.0
+offset_bottom = 15.0
+color = Color(1, 0.21568628, 1, 0)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Body" unique_id=564573966]
+position = Vector2(16, 7)
+scale = Vector2(0.1, 0.1)
+sprite_frames = SubResource("SpriteFrames_mvgdh")
+animation = &"walk_down"
+speed_scale = 0.5

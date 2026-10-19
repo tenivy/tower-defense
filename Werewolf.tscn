@@ -1,0 +1,159 @@
+[gd_scene format=3 uid="uid://bobjbupbyca4c"]
+
+[ext_resource type="Script" uid="uid://3cjsua3yd4yu" path="res://enemy.gd" id="1_pv6ds"]
+[ext_resource type="Texture2D" uid="uid://c1up8nw34378l" path="res://assets/photo/werewolf/front/1.png0002.png" id="2_pv6ds"]
+[ext_resource type="Texture2D" uid="uid://c8l5k8wwbea3t" path="res://assets/photo/werewolf/front/1.png0005.png" id="3_o0nqw"]
+[ext_resource type="Texture2D" uid="uid://osl2tgq22rfw" path="res://assets/photo/werewolf/front/1.png0008.png" id="4_ms3px"]
+[ext_resource type="Texture2D" uid="uid://j47cktdeviwb" path="res://assets/photo/werewolf/front/1.png0011.png" id="5_eart7"]
+[ext_resource type="Texture2D" uid="uid://cvkfhrvhv3mlf" path="res://assets/photo/werewolf/front/1.png0014.png" id="6_oues2"]
+[ext_resource type="Texture2D" uid="uid://c0p4a61pvey71" path="res://assets/photo/werewolf/front/1.png0017.png" id="7_jtsiy"]
+[ext_resource type="Texture2D" uid="uid://btafu6kr8ga7u" path="res://assets/photo/werewolf/front/6.png0021.png" id="8_5s56k"]
+[ext_resource type="Texture2D" uid="uid://bjr1a5v72mb0" path="res://assets/photo/werewolf/right/1.png0002.png" id="9_fgocp"]
+[ext_resource type="Texture2D" uid="uid://gklucufj1nud" path="res://assets/photo/werewolf/right/1.png0005.png" id="10_pdbnv"]
+[ext_resource type="Texture2D" uid="uid://crh8uw83noyea" path="res://assets/photo/werewolf/right/1.png0008.png" id="11_cbige"]
+[ext_resource type="Texture2D" uid="uid://dcnkephoq8jjs" path="res://assets/photo/werewolf/right/1.png0011.png" id="12_qvyau"]
+[ext_resource type="Texture2D" uid="uid://bry1ywgkwhjy0" path="res://assets/photo/werewolf/right/1.png0014.png" id="13_5tseh"]
+[ext_resource type="Texture2D" uid="uid://dy65dfl6r7mxx" path="res://assets/photo/werewolf/right/1.png0017.png" id="14_hepvw"]
+[ext_resource type="Texture2D" uid="uid://dlqm4m8yrmc7y" path="res://assets/photo/werewolf/right/6.png0021.png" id="15_txjy2"]
+[ext_resource type="Texture2D" uid="uid://d4dsngg1i5rtb" path="res://assets/photo/werewolf/left/1.png0002.png" id="16_a1j26"]
+[ext_resource type="Texture2D" uid="uid://in8avtcsrt0c" path="res://assets/photo/werewolf/left/1.png0005.png" id="17_vroy5"]
+[ext_resource type="Texture2D" uid="uid://dpehdd610qfkh" path="res://assets/photo/werewolf/left/1.png0008.png" id="18_jkb4v"]
+[ext_resource type="Texture2D" uid="uid://c2s1e0btllnpw" path="res://assets/photo/werewolf/left/1.png0011.png" id="19_guehn"]
+[ext_resource type="Texture2D" uid="uid://goyhsp6m5v88" path="res://assets/photo/werewolf/left/1.png0014.png" id="20_5do2o"]
+[ext_resource type="Texture2D" uid="uid://75o6c2g8l5en" path="res://assets/photo/werewolf/left/1.png0017.png" id="21_xjv1u"]
+[ext_resource type="Texture2D" uid="uid://b38bpeabouyum" path="res://assets/photo/werewolf/left/6.png0021.png" id="22_vbdxt"]
+[ext_resource type="Texture2D" uid="uid://bcd6jic2exm1" path="res://assets/photo/werewolf/back/1.png0002.png" id="23_37gw0"]
+[ext_resource type="Texture2D" uid="uid://cdbeqdmr8ccgu" path="res://assets/photo/werewolf/back/1.png0005.png" id="24_jeg15"]
+[ext_resource type="Texture2D" uid="uid://d3nlh7jenrxr1" path="res://assets/photo/werewolf/back/1.png0008.png" id="25_vvilh"]
+[ext_resource type="Texture2D" uid="uid://b5m1f1wmxvn25" path="res://assets/photo/werewolf/back/1.png0011.png" id="26_jk3re"]
+[ext_resource type="Texture2D" uid="uid://c0qwaipc7sygs" path="res://assets/photo/werewolf/back/1.png0014.png" id="27_u5em1"]
+[ext_resource type="Texture2D" uid="uid://e673kmmtlpar" path="res://assets/photo/werewolf/back/1.png0017.png" id="28_kd1xa"]
+[ext_resource type="Texture2D" uid="uid://026hk2l47a02" path="res://assets/photo/werewolf/back/6.png0021.png" id="29_8hds6"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mvgdh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_pv6ds")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_o0nqw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ms3px")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_eart7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_oues2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_jtsiy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_5s56k")
+}],
+"loop": 1,
+"name": &"walk_down",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_fgocp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_pdbnv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_cbige")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_qvyau")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_5tseh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_hepvw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_txjy2")
+}],
+"loop": 1,
+"name": &"walk_left",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("16_a1j26")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_vroy5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_jkb4v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_guehn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_5do2o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_xjv1u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_vbdxt")
+}],
+"loop": 1,
+"name": &"walk_right",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("23_37gw0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_jeg15")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_vvilh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_jk3re")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_u5em1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_kd1xa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_8hds6")
+}],
+"loop": 1,
+"name": &"walk_up",
+"speed": 8.0
+}]
+
+[node name="Werewolf" type="Node2D" unique_id=884376071 groups=["enemies"]]
+script = ExtResource("1_pv6ds")
+speed = 45.0
+health = 200
+reward = 25
+castle_damage = 20
+
+[node name="Body" type="ColorRect" parent="." unique_id=1322198080]
+offset_left = -15.0
+offset_top = -15.0
+offset_right = 15.0
+offset_bottom = 15.0
+color = Color(1, 0.21568628, 1, 0)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Body" unique_id=564573966]
+position = Vector2(16, 7)
+scale = Vector2(0.1, 0.1)
+sprite_frames = SubResource("SpriteFrames_mvgdh")
+animation = &"walk_left"
+speed_scale = 0.5

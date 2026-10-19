@@ -1,25 +1,145 @@
 [gd_scene format=3 uid="uid://d2r3d4jv3a2xr"]
 
 [ext_resource type="Script" uid="uid://3cjsua3yd4yu" path="res://enemy.gd" id="1_tt7e2"]
-[ext_resource type="Texture2D" uid="uid://bju67yo1777rc" path="res://assets/5.png" id="2_2hac7"]
-[ext_resource type="Texture2D" uid="uid://dhnr0777rbjq6" path="res://assets/6.png" id="3_e6d4v"]
+[ext_resource type="Texture2D" uid="uid://dxo4q75rpo8t3" path="res://assets/photo/goblin/front/1.png0002.png" id="2_grakr"]
+[ext_resource type="Texture2D" uid="uid://dwhuyd761r1ay" path="res://assets/photo/goblin/front/1.png0005.png" id="3_se7ri"]
+[ext_resource type="Texture2D" uid="uid://2roub50ivg47" path="res://assets/photo/goblin/front/1.png0008.png" id="4_4snat"]
+[ext_resource type="Texture2D" uid="uid://byl2b104472hr" path="res://assets/photo/goblin/front/1.png0011.png" id="5_d7dqe"]
+[ext_resource type="Texture2D" uid="uid://bd6kyhd4molhg" path="res://assets/photo/goblin/front/1.png0014.png" id="6_5gnn4"]
+[ext_resource type="Texture2D" uid="uid://c5isfcwvm8swr" path="res://assets/photo/goblin/front/1.png0017.png" id="7_md135"]
+[ext_resource type="Texture2D" uid="uid://dulnca4ticqjk" path="res://assets/photo/goblin/front/6.png0021.png" id="8_ate0v"]
+[ext_resource type="Texture2D" uid="uid://q6sj4ubhegex" path="res://assets/photo/goblin/right/1.png0002.png" id="9_igx5e"]
+[ext_resource type="Texture2D" uid="uid://bawc0pxjawrqs" path="res://assets/photo/goblin/right/1.png0005.png" id="10_0475v"]
+[ext_resource type="Texture2D" uid="uid://dm5vcwo3gedac" path="res://assets/photo/goblin/right/1.png0008.png" id="11_k1vxq"]
+[ext_resource type="Texture2D" uid="uid://di7gn5u6kh52e" path="res://assets/photo/goblin/right/1.png0011.png" id="12_s3qvm"]
+[ext_resource type="Texture2D" uid="uid://cqiqe6djdas5y" path="res://assets/photo/goblin/right/1.png0014.png" id="13_t7y4o"]
+[ext_resource type="Texture2D" uid="uid://3gaqh4hnwn55" path="res://assets/photo/goblin/right/1.png0017.png" id="14_7l7ef"]
+[ext_resource type="Texture2D" uid="uid://d236owyhtr1ri" path="res://assets/photo/goblin/right/6.png0021.png" id="15_4los3"]
+[ext_resource type="Texture2D" uid="uid://cof1awjv12gna" path="res://assets/photo/goblin/left/1.png0002.png" id="16_lk3c7"]
+[ext_resource type="Texture2D" uid="uid://cltd3nmap4g3s" path="res://assets/photo/goblin/left/1.png0005.png" id="17_lyy8w"]
+[ext_resource type="Texture2D" uid="uid://d1o64juwoefep" path="res://assets/photo/goblin/left/1.png0008.png" id="18_tpri1"]
+[ext_resource type="Texture2D" uid="uid://cpb8knn5rb776" path="res://assets/photo/goblin/left/1.png0011.png" id="19_8a0x6"]
+[ext_resource type="Texture2D" uid="uid://bg4yuslrcktdq" path="res://assets/photo/goblin/left/1.png0014.png" id="20_ynph2"]
+[ext_resource type="Texture2D" uid="uid://u7igon80xkr5" path="res://assets/photo/goblin/left/1.png0017.png" id="21_anukq"]
+[ext_resource type="Texture2D" uid="uid://b27jfjjf62p3q" path="res://assets/photo/goblin/left/6.png0021.png" id="22_y5rll"]
+[ext_resource type="Texture2D" uid="uid://b4cq4slvarhw2" path="res://assets/photo/goblin/back/1.png0002.png" id="23_mlc0l"]
+[ext_resource type="Texture2D" uid="uid://xjk62lbnli5e" path="res://assets/photo/goblin/back/1.png0005.png" id="24_i6xlq"]
+[ext_resource type="Texture2D" uid="uid://c4klg4743lnid" path="res://assets/photo/goblin/back/1.png0008.png" id="25_da5l7"]
+[ext_resource type="Texture2D" uid="uid://bntm4m7bo40y5" path="res://assets/photo/goblin/back/1.png0011.png" id="26_7iukl"]
+[ext_resource type="Texture2D" uid="uid://dkffrpwr77jrx" path="res://assets/photo/goblin/back/1.png0014.png" id="27_rr4pi"]
+[ext_resource type="Texture2D" uid="uid://d1cyjcoygtsmy" path="res://assets/photo/goblin/back/1.png0017.png" id="28_12qs1"]
+[ext_resource type="Texture2D" uid="uid://d0ntaokpx3nty" path="res://assets/photo/goblin/back/6.png0021.png" id="29_pifbk"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_mvgdh"]
 animations = [{
 "frames": [{
-"duration": 1.5,
-"texture": ExtResource("2_2hac7")
+"duration": 1.0,
+"texture": ExtResource("2_grakr")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_e6d4v")
+"texture": ExtResource("3_se7ri")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_4snat")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_d7dqe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_5gnn4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_md135")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_ate0v")
 }],
 "loop": 1,
-"name": &"goblin",
-"speed": 5.0
+"name": &"walk_down",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_igx5e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_0475v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_k1vxq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_s3qvm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_t7y4o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_7l7ef")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_4los3")
+}],
+"loop": 1,
+"name": &"walk_left",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("16_lk3c7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_lyy8w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_tpri1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_8a0x6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_ynph2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_anukq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_y5rll")
+}],
+"loop": 1,
+"name": &"walk_right",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("23_mlc0l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_i6xlq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_da5l7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_7iukl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_rr4pi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_12qs1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_pifbk")
+}],
+"loop": 1,
+"name": &"walk_up",
+"speed": 8.0
 }]
 
 [node name="Enemy" type="Node2D" unique_id=884376071 groups=["enemies"]]
 script = ExtResource("1_tt7e2")
+speed = 60.0
 
 [node name="Body" type="ColorRect" parent="." unique_id=1322198080]
 offset_left = -15.0
@@ -30,7 +150,7 @@ color = Color(1, 0.21568628, 1, 0)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Body" unique_id=564573966]
 position = Vector2(16, 7)
-scale = Vector2(0.154, 0.154)
+scale = Vector2(0.1, 0.1)
 sprite_frames = SubResource("SpriteFrames_mvgdh")
-animation = &"goblin"
+animation = &"walk_down"
 speed_scale = 0.5

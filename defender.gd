@@ -70,9 +70,7 @@ func find_nearest_enemy():
 	var enemies = get_tree().get_nodes_in_group("enemies")
 
 	var best_enemy = null
-	var best_distance_to_castle = INF
-
-	var castle = get_tree().current_scene.get_node("Map/Castle")
+	var best_progress = -1
 
 	for enemy in enemies:
 		var distance_to_defender = global_position.distance_to(enemy.global_position)
@@ -81,11 +79,11 @@ func find_nearest_enemy():
 		if distance_to_defender > attack_range:
 			continue
 
-		# Расстояние от врага до замка
-		var distance_to_castle = enemy.global_position.distance_to(castle.global_position)
+		# Прогресс врага по дороге (чем больше, тем опаснее)
+		var progress = enemy.get_progress()
 
-		if distance_to_castle < best_distance_to_castle:
-			best_distance_to_castle = distance_to_castle
+		if progress > best_progress:
+			best_progress = progress
 			best_enemy = enemy
 
 	return best_enemy

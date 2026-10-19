@@ -103,7 +103,7 @@ text = "Gold: 100"
 [node name="Enemies" type="Node2D" parent="." unique_id=846401855]
 
 [node name="Enemy" parent="Enemies" unique_id=884376071 instance=ExtResource("3_h2yge")]
-position = Vector2(-70, -13)
+position = Vector2(-117, -10)
 
 [node name="CastleHealthBar" type="ProgressBar" parent="." unique_id=464556620]
 self_modulate = Color(0.19607843, 0.7490196, 0.3372549, 1)

@@ -10,6 +10,9 @@ extends Node2D
 @onready var castle_health_bar = $CastleHealthBar
 @onready var round_label = $Shop/RoundLabel
 
+var goblin_scene = preload("res://Goblin.tscn")
+var werewolf_scene = preload("res://Werewolf.tscn")
+
 var preview_defender
 var selected_defender = false
 var selected_placed_defender = null
@@ -187,7 +190,7 @@ func spawn_enemy():
 	if enemies_spawned >= enemies_to_spawn:
 		return
 
-	var enemy_scene = preload("res://Enemy.tscn")
+	var enemy_scene = get_enemy_scene()
 
 	var enemy = enemy_scene.instantiate()
 	$Enemies.add_child(enemy)
@@ -196,8 +199,6 @@ func spawn_enemy():
 	enemy.setup_path(points)
 
 	enemies_spawned += 1
-
-	print("Создан враг ", enemies_spawned, " из ", enemies_to_spawn)
 
 func start_round():
 	if round_in_progress:
@@ -319,3 +320,10 @@ func update_upgrade_button():
 	else:
 		var cost = upgrade_costs_by_level[level - 1]
 		$DefenderPanel/UpgradeButton.text = "Улучшить (" + str(cost) + ")"
+
+# Выбирает сцену врага: шанс оборотня растёт с раундом
+func get_enemy_scene() -> PackedScene:
+	var werewolf_chance = clampf((current_round - 2) * 0.1, 0.0, 0.5)
+	if randf() < werewolf_chance:
+		return werewolf_scene
+	return goblin_scene

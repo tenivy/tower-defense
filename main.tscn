@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://d3hhl01wtkq11" path="res://defender.tscn" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://dl4mj8h1vdh65" path="res://assets/IMG_2027.PNG" id="3_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://d2r3d4jv3a2xr" path="res://Enemy.tscn" id="3_h2yge"]
+[ext_resource type="Texture2D" uid="uid://2mg16rywqokl" path="res://assets/photo/background/5.png0021.png" id="4_lquwl"]
 
 [node name="Main" type="Node2D" unique_id=392727660]
 position = Vector2(21, 38)
@@ -21,11 +22,11 @@ metadata/_edit_use_anchors_ = true
 [node name="Map" type="Node2D" parent="." unique_id=14236331]
 
 [node name="EnemyPath" type="Line2D" parent="Map" unique_id=1198063913]
-position = Vector2(5900.789, 985.4371)
-scale = Vector2(20.693808, 19.804764)
-points = PackedVector2Array(-275.57474, -44.624447, -278.12195, -16.979698, -244.76329, -17.183342, -248.45094, -25.353746, -270.1864, -27.111015, -269.61237, -38.081535, -260.16428, -35.569077, -256.73328, -29.307955, -247.26186, -29.105984, -261.33395, -47.907387, -235.32301, -48.11103, -236.00879, -36.04509, -230.10696, -35.97302, -230.15529, -28.449575)
+position = Vector2(5900.789, 985.43713)
+scale = Vector2(20.693808, 19.804766)
+points = PackedVector2Array(-279.3004, -44.10237, -279.15546, -34.054287, -261.75894, -33.751328, -261.80728, -26.682323, -269.97397, -26.732817, -270.02228, -18.603458, -251.56265, -18.552967, -251.56265, -48.495255, -229.62373, -48.24279, -229.18881, -39.255054, -240.68985, -38.9521, -239.91666, -19.209373, -235.95413, -19.209373)
 width = 2.0
-default_color = Color(0.4, 0.4, 0.4, 1)
+default_color = Color(0.65882355, 0.23137255, 0.3019608, 0)
 
 [node name="Castle" type="ColorRect" parent="Map" unique_id=923376164]
 offset_left = 1022.0
@@ -47,6 +48,11 @@ offset_right = 270.92377
 offset_bottom = 116.639465
 color = Color(0.7073095, 0.26948652, 0.18463153, 1)
 metadata/_edit_use_anchors_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Map" unique_id=1470256290]
+position = Vector2(618.99994, 322.49997)
+scale = Vector2(0.99999994, 1.0041666)
+texture = ExtResource("4_lquwl")
 
 [node name="Defenders" type="Node2D" parent="." unique_id=614140325]
 
@@ -100,10 +106,11 @@ text = "Gold: 100"
 position = Vector2(-70, -13)
 
 [node name="CastleHealthBar" type="ProgressBar" parent="." unique_id=464556620]
-offset_left = 1110.0
-offset_top = 426.0
-offset_right = 1166.0
-offset_bottom = 454.0
+self_modulate = Color(0.19607843, 0.7490196, 0.3372549, 1)
+offset_left = 1079.0
+offset_top = 323.0
+offset_right = 1257.0
+offset_bottom = 356.0
 value = 100.0
 
 [node name="SpawnTimer" type="Timer" parent="." unique_id=2020780686]

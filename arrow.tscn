@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bndpjgm1ycjot"]
 
 [ext_resource type="Script" uid="uid://c660e55gahh5i" path="res://arrow.gd" id="1_l5ahi"]
+[ext_resource type="Texture2D" uid="uid://dsm4tpvptklhx" path="res://assets/Arrow.png" id="2_2ndhl"]
 
 [node name="Arrow" type="Node2D" unique_id=1046179942]
 script = ExtResource("1_l5ahi")
@@ -10,4 +11,9 @@ offset_left = -7.0
 offset_top = -2.0
 offset_right = 7.0
 offset_bottom = 2.0
-color = Color(0.30256015, 0.19879419, 0.152676, 1)
+color = Color(0.28850925, 0.19039069, 0.14510521, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1820671530]
+rotation = 3.1415927
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("2_2ndhl")

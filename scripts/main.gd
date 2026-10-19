@@ -107,7 +107,6 @@ func _input(event):
 
 func place_defender(position: Vector2):
 	if not can_place_defender(position):
-		print("Сюда ставить нельзя")
 		return
 	var defender = placement_scene.instantiate()
 	defenders.add_child(defender)
@@ -118,7 +117,6 @@ func place_defender(position: Vector2):
 		preview_defender.queue_free()
 		preview_defender = null
 	selected_defender = false
-	print("Защитник установлен. Золото: ", gold)
 
 func damage_castle(amount: int):
 	castle_health -= amount
@@ -260,8 +258,6 @@ func cancel_defender_placement():
 
 	selected_defender = false
 
-	print("Установка Рыцаря отменена")
-
 func update_round_label():
 	round_label.text = "Раунд " + str(current_round)
 
@@ -280,7 +276,6 @@ func select_placed_defender(defender):
 	selected_placed_defender = defender
 	defender.attack_range_circle.visible = true
 	$DefenderPanel.visible = true
-	print("Рыцарь выбран")
 	update_upgrade_button()
 
 func deselect_placed_defender():
@@ -294,11 +289,9 @@ func _on_upgrade_button_pressed():
 		return
 	var level = selected_placed_defender.upgrade_level
 	if level >= 3:
-		print("Рыцарь уже максимального уровня")
 		return
 	var cost = upgrade_costs_by_level[level - 1]
 	if gold < cost:
-		print("Недостаточно золота. Нужно: ", cost)
 		return
 	gold -= cost
 	update_gold_label()
@@ -318,7 +311,6 @@ func _on_sell_button_pressed():
 	update_gold_label()
 	deselect_placed_defender()
 	defender.queue_free()
-	print("Рыцарь продан. Возврат: ", refund)
 
 func update_upgrade_button():
 	var level = selected_placed_defender.upgrade_level

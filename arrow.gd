@@ -31,6 +31,5 @@ func _process(delta):
 	for enemy in get_tree().get_nodes_in_group("enemies"):
 		if global_position.distance_to(enemy.global_position) <= hit_radius:
 			enemy.take_damage(damage)
-			print("Стрела попала во врага на ", damage, " урона")
 			queue_free()
 			return

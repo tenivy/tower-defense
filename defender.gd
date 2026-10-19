@@ -2,6 +2,7 @@ extends Node2D
 
 var is_preview: bool = false
 var attack_range_circle: Line2D
+var current_facing: String = "right"
 
 # Уровень рыцаря
 var upgrade_level: int = 1
@@ -16,13 +17,12 @@ var upgrade_level: int = 1
 @export var attack_cooldown: float = 1.0
 @export var attack_range: float = 100.0
 
-@export var texture_level_1: Texture2D
-@export var texture_level_2: Texture2D
-@export var texture_level_3: Texture2D
-
 @export var uses_projectile: bool = false
 @export var projectile_scene: PackedScene = null
 @export var projectile_speed: float = 600.0
+
+@export var idle_frame: int = 0
+@export var mirrored_facing: bool = true
 
 var attack_timer: float = 0.0
 
@@ -45,7 +45,6 @@ func _ready():
 	attack_range_circle.points = points
 	attack_range_circle.visible = is_preview
 	
-	$Body.visible = false
 	update_sprite()
 
 func _process(delta):
@@ -58,11 +57,14 @@ func _process(delta):
 	var enemy = find_nearest_enemy()
 
 	if enemy:
-		look_at(enemy.global_position)
+		update_facing(enemy.global_position)
+		update_sprite()
 
 		if attack_timer <= 0:
 			attack(enemy)
 			attack_timer = attack_cooldown
+	else:
+		stop_sprite()
 
 func find_nearest_enemy():
 	var enemies = get_tree().get_nodes_in_group("enemies")
@@ -101,8 +103,7 @@ func attack(enemy):
 		projectile.max_distance = attack_range + 60
 	else:
 		enemy.take_damage(damage)
-		print("Рыцарь атаковал врага на ", damage, " урона")
-# Обновление характеристик по уровню
+
 func update_stats():
 	damage = damage_by_level[upgrade_level - 1]
 	attack_range = attack_range_by_level[upgrade_level - 1]
@@ -111,26 +112,12 @@ func update_stats():
 # Улучшение рыцаря
 func upgrade():
 	if upgrade_level >= 3:
-		print("Рыцарь уже максимального уровня")
 		return
 
 	upgrade_level += 1
 	update_stats()
 	update_attack_range_circle()
 	update_sprite()
-
-	print("Рыцарь улучшен до уровня ", upgrade_level)
-	print("Урон: ", damage)
-	print("Радиус: ", attack_range)
-	print("Перезарядка: ", attack_cooldown)
-
-func _on_attack_range_input_event(viewport, event, shape_idx):
-	if is_preview:
-		return
-
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			print("Рыцарь выбран")
 
 func update_attack_range_circle():
 	var points = PackedVector2Array()
@@ -140,9 +127,35 @@ func update_attack_range_circle():
 	attack_range_circle.points = points
 
 func update_sprite():
-	if upgrade_level == 1:
-		$KnightSprite.texture = texture_level_1
-	elif upgrade_level == 2:
-		$KnightSprite.texture = texture_level_2
+	$KnightSprite.play("level_" + str(upgrade_level) + "_" + current_facing)
+
+# Ракурсы в анимации направлены противоположно,
+# поэтому left/right и up/down назначаются наоборот.
+# Выбирает один из 4 ракурсов по позиции цели
+# Выбирает один из 4 ракурсов по позиции цели
+func update_facing(target_position: Vector2):
+	var direction = (target_position - global_position).normalized()
+	var new_facing: String
+	if abs(direction.x) > abs(direction.y):
+		new_facing = "right" if direction.x > 0 else "left"
 	else:
-		$KnightSprite.texture = texture_level_3
+		new_facing = "down" if direction.y > 0 else "up"
+	if mirrored_facing:
+		# Арт рыцаря направлен противоположно сторонам света
+		match new_facing:
+			"right":
+				new_facing = "left"
+			"left":
+				new_facing = "right"
+			"up":
+				new_facing = "down"
+			"down":
+				new_facing = "up"
+	if new_facing != current_facing:
+		current_facing = new_facing
+		update_sprite()
+
+# Бездействие: показываем выбранный статичный кадр
+func stop_sprite():
+	$KnightSprite.stop()
+	$KnightSprite.frame = idle_frame

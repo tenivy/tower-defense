@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://bs72lhuwc7rcr"]
 
 [ext_resource type="Script" uid="uid://4m04d3dtceh8" path="res://scripts/main.gd" id="1_0xm2m"]
-[ext_resource type="PackedScene" uid="uid://d3hhl01wtkq11" path="res://defender.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://d3hhl01wtkq11" path="res://scenes/defender.tscn" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://dl4mj8h1vdh65" path="res://assets/IMG_2027.PNG" id="3_1bvp3"]
-[ext_resource type="PackedScene" uid="uid://d2r3d4jv3a2xr" path="res://Enemy.tscn" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://d2r3d4jv3a2xr" path="res://scenes/enemy.tscn" id="3_h2yge"]
 [ext_resource type="Texture2D" uid="uid://2mg16rywqokl" path="res://assets/photo/background/5.png0021.png" id="4_lquwl"]
 
 [node name="Main" type="Node2D" unique_id=392727660]

@@ -10,8 +10,8 @@ extends Node2D
 @onready var castle_health_bar = $CastleHealthBar
 @onready var round_label = $Shop/RoundLabel
 
-var goblin_scene = preload("res://Goblin.tscn")
-var werewolf_scene = preload("res://Werewolf.tscn")
+var goblin_scene = preload("res://scenes/goblin.tscn")
+var werewolf_scene = preload("res://scenes/werewolf.tscn")
 
 var preview_defender
 var selected_defender = false
@@ -21,7 +21,7 @@ var defender_click_radius = 25
 var castle_health = 100
 var castle_max_health = 100
 
-var archer_scene = preload("res://Archer.tscn")
+var archer_scene = preload("res://scenes/archer.tscn")
 var placement_scene: PackedScene = null
 
 var round_in_progress = false

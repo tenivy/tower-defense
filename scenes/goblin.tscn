@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://g5se6rloehqy"]
 
-[ext_resource type="Script" uid="uid://3cjsua3yd4yu" path="res://enemy.gd" id="1_fljwg"]
+[ext_resource type="Script" uid="uid://3cjsua3yd4yu" path="res://scripts/enemy.gd" id="1_fljwg"]
 [ext_resource type="Texture2D" uid="uid://dxo4q75rpo8t3" path="res://assets/photo/goblin/front/1.png0002.png" id="2_b6esf"]
 [ext_resource type="Texture2D" uid="uid://dwhuyd761r1ay" path="res://assets/photo/goblin/front/1.png0005.png" id="3_062hh"]
 [ext_resource type="Texture2D" uid="uid://2roub50ivg47" path="res://assets/photo/goblin/front/1.png0008.png" id="4_mm4d8"]

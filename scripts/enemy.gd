@@ -14,11 +14,18 @@ extends Node2D
 @export var flash_duration: float = 0.12
 @export var flash_color: Color = Color(1.0, 0.4, 0.4, 1.0)
 
+# Параметры визуального эффекта смерти
+@export var death_pause: float = 0.12
+@export var death_particle_count: int = 28
+@export var death_explosion_duration: float = 0.5
+@export var death_particle_size: int = 3
+
 var path_points: PackedVector2Array
 var current_point: int = 0
 var current_facing: String = "down"
 var body_start_position: Vector2
 var damage_tween: Tween
+var is_dead: bool = false
 
 func _ready():
 	add_to_group("enemies")
@@ -34,6 +41,9 @@ func setup_path(points: PackedVector2Array):
 
 
 func _process(delta):
+	if is_dead:
+		return
+
 	if path_points.is_empty():
 		return
 
@@ -62,11 +72,15 @@ func _process(delta):
 
 
 func take_damage(amount: int):
+	if is_dead:
+		return
+
 	health -= amount
-	play_damage_effect()
 
 	if health <= 0:
 		die()
+	else:
+		play_damage_effect()
 
 
 func play_damage_effect():
@@ -97,6 +111,19 @@ func finish_damage_effect():
 
 
 func die():
+	if is_dead:
+		return
+
+	is_dead = true
+	remove_from_group("enemies")
+
+	if damage_tween and damage_tween.is_valid():
+		damage_tween.kill()
+
+	body.position = body_start_position
+	animated_sprite.modulate = Color.WHITE
+	animated_sprite.stop()
+
 	var main = get_tree().current_scene
 
 	if main.has_method("add_gold"):
@@ -105,10 +132,54 @@ func die():
 	if main.has_method("enemy_finished"):
 		main.enemy_finished()
 
-	queue_free()
+	# Tween привязан к врагу и автоматически остановится при его удалении
+	var death_tween = create_tween()
+	death_tween.tween_interval(death_pause)
+	death_tween.tween_callback(play_death_explosion)
+	death_tween.tween_interval(death_explosion_duration)
+	death_tween.tween_callback(queue_free)
+
+
+func play_death_explosion():
+	animated_sprite.hide()
+
+	var particles = CPUParticles2D.new()
+	particles.emitting = false
+	particles.amount = death_particle_count
+	particles.lifetime = death_explosion_duration
+	particles.one_shot = true
+	particles.explosiveness = 1.0
+	particles.direction = Vector2.RIGHT
+	particles.spread = 180.0
+	particles.initial_velocity_min = 50.0
+	particles.initial_velocity_max = 120.0
+	particles.gravity = Vector2.ZERO
+	particles.color = Color(1.0, 0.5, 0.2, 1.0)
+
+	# Квадратная текстура создаётся в памяти, без файла в assets
+	var image = Image.create_empty(
+		death_particle_size,
+		death_particle_size,
+		false,
+		Image.FORMAT_RGBA8
+	)
+	image.fill(Color.WHITE)
+	particles.texture = ImageTexture.create_from_image(image)
+
+	# Альфа постепенно уменьшается, и частицы исчезают к концу жизни
+	var gradient = Gradient.new()
+	gradient.set_color(0, Color.WHITE)
+	gradient.set_color(1, Color(1.0, 1.0, 1.0, 0.0))
+	particles.color_ramp = gradient
+
+	add_child(particles)
+	particles.emitting = true
 
 
 func reach_castle():
+	if is_dead:
+		return
+
 	var main = get_tree().current_scene
 
 	if main.has_method("damage_castle"):

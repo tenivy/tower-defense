@@ -16,6 +16,7 @@ var upgrade_level: int = 1
 @export var damage: int = 20
 @export var attack_cooldown: float = 1.0
 @export var attack_range: float = 100.0
+@export var splash_radius: float = 0.0
 
 @export var uses_projectile: bool = false
 @export var projectile_scene: PackedScene = null
@@ -99,6 +100,7 @@ func attack(enemy):
 		projectile.damage = damage
 		projectile.speed = projectile_speed
 		projectile.max_distance = attack_range + 60
+		projectile.splash_radius = splash_radius
 	else:
 		enemy.take_damage(damage)
 

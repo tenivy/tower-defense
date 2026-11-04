@@ -5,7 +5,7 @@ var speed: float = 600.0
 var damage: int = 0
 var max_distance: float = 400.0
 var hit_radius: float = 14.0
-
+var splash_radius: float = 0.0
 var traveled: float = 0.0
 var target = null
 
@@ -30,6 +30,12 @@ func _process(delta):
 	# Попадание
 	for enemy in get_tree().get_nodes_in_group("enemies"):
 		if global_position.distance_to(enemy.global_position) <= hit_radius:
-			enemy.take_damage(damage)
+			if splash_radius > 0:
+				# Взрыв: урон всем врагам в радиусе
+				for other in get_tree().get_nodes_in_group("enemies"):
+					if other.global_position.distance_to(global_position) <= splash_radius:
+						other.take_damage(damage)
+			else:
+				enemy.take_damage(damage)
 			queue_free()
 			return

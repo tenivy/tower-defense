@@ -12,6 +12,7 @@ extends Node2D
 
 var goblin_scene = preload("res://scenes/goblin.tscn")
 var werewolf_scene = preload("res://scenes/werewolf.tscn")
+var wizard_scene = preload("res://scenes/wizard.tscn")
 
 var preview_defender
 var selected_defender = false
@@ -49,6 +50,9 @@ func select_knight():
 
 func select_archer():
 	start_defender_placement(archer_scene)
+
+func select_wizard():
+	start_defender_placement(wizard_scene)
 
 func start_defender_placement(scene):
 	selected_defender = true

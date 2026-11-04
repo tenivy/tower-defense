@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://4m04d3dtceh8" path="res://scripts/main.gd" id="1_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://d3hhl01wtkq11" path="res://scenes/defender.tscn" id="2_tefeu"]
-[ext_resource type="Texture2D" uid="uid://dl4mj8h1vdh65" path="res://assets/IMG_2027.PNG" id="3_o6xl0"]
-[ext_resource type="Texture2D" uid="uid://2mg16rywqokl" path="res://assets/photo/background/5.png0021.png" id="4_tipki"]
+[ext_resource type="Texture2D" path="res://assets/IMG_2027.PNG" id="3_o6xl0"]
+[ext_resource type="Texture2D" uid="uid://2mg16rywqokl" path="res://assets/background/5.png0021.png" id="4_tipki"]
 [ext_resource type="PackedScene" uid="uid://d2r3d4jv3a2xr" path="res://scenes/enemy.tscn" id="5_85g3d"]
 
 [node name="Main" type="Node2D" unique_id=392727660]
@@ -93,6 +93,14 @@ offset_right = 120.0
 offset_bottom = 185.0
 text = "Archer"
 
+[node name="WizardButton" type="Button" parent="Shop" unique_id=1444070040]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 187.0
+offset_right = 120.0
+offset_bottom = 249.0
+text = "Wizard"
+
 [node name="GoldLabel" type="Label" parent="." unique_id=366469932]
 offset_left = 6.0
 offset_top = 473.0
@@ -146,6 +154,7 @@ text = "Продать"
 [connection signal="pressed" from="Shop/KnightButton" to="." method="_on_knight_button_pressed"]
 [connection signal="pressed" from="Shop/StartRoundButton" to="." method="_on_start_round_button_pressed"]
 [connection signal="pressed" from="Shop/ArcherButton" to="." method="select_archer"]
+[connection signal="pressed" from="Shop/WizardButton" to="." method="select_wizard"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="pressed" from="DefenderPanel/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
 [connection signal="pressed" from="DefenderPanel/SellButton" to="." method="_on_sell_button_pressed"]

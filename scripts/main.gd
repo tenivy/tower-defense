@@ -108,12 +108,12 @@ func _input(event):
 			else:
 				deselect_placed_defender()
 
-func place_defender(position: Vector2):
-	if not can_place_defender(position):
+func place_defender(map_position: Vector2):
+	if not can_place_defender(map_position):
 		return
 	var defender = placement_scene.instantiate()
 	defenders.add_child(defender)
-	defender.global_position = position
+	defender.global_position = map_position
 	gold -= defender.cost
 	update_gold_label()
 	if preview_defender:
@@ -139,29 +139,29 @@ func game_over():
 	print("ПОРАЖЕНИЕ! Замок разрушен.")
 	get_tree().paused = true
 
-func can_place_defender(position: Vector2) -> bool:
+func can_place_defender(map_position: Vector2) -> bool:
 	if preview_defender and gold < preview_defender.cost:
 		return false
-	if is_too_close_to_path(position):
+	if is_too_close_to_path(map_position):
 		return false
-	if is_too_close_to_defender(position):
+	if is_too_close_to_defender(map_position):
 		return false
 	return true
 
-func is_too_close_to_defender(position: Vector2) -> bool:
+func is_too_close_to_defender(map_position: Vector2) -> bool:
 	for defender in defenders.get_children():
-		var distance = position.distance_to(defender.global_position)
+		var distance = map_position.distance_to(defender.global_position)
 
 		if distance < defender_clearance:
 			return true
 
 	return false
 
-func is_too_close_to_path(position: Vector2) -> bool:
+func is_too_close_to_path(map_position: Vector2) -> bool:
 	var path = $Map/EnemyPath
 	var points = path.points
 
-	var local_position = path.to_local(position)
+	var local_position = path.to_local(map_position)
 
 	for i in range(points.size() - 1):
 		var start = points[i]
@@ -262,11 +262,11 @@ func cancel_defender_placement():
 func update_round_label():
 	round_label.text = "Раунд " + str(current_round)
 
-func get_defender_at(position: Vector2):
+func get_defender_at(map_position: Vector2):
 	var best_defender = null
 	var best_distance = INF
 	for defender in defenders.get_children():
-		var distance = position.distance_to(defender.global_position)
+		var distance = map_position.distance_to(defender.global_position)
 		if distance <= defender_click_radius and distance < best_distance:
 			best_distance = distance
 			best_defender = defender

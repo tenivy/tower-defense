@@ -1,0 +1,109 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_mmenu"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mmenu")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.11, 0.12, 0.15, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="MenuVBox" type="VBoxContainer" parent="MarginContainer/CenterContainer"]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/CenterContainer/MenuVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "2D Tower Defense"
+horizontal_alignment = 1
+
+[node name="ButtonsVBox" type="VBoxContainer" parent="MarginContainer/CenterContainer/MenuVBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="PlayButton" type="Button" parent="MarginContainer/CenterContainer/MenuVBox/ButtonsVBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Играть"
+
+[node name="SettingsButton" type="Button" parent="MarginContainer/CenterContainer/MenuVBox/ButtonsVBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Настройки"
+
+[node name="QuitButton" type="Button" parent="MarginContainer/CenterContainer/MenuVBox/ButtonsVBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Выход"
+
+
+[node name="LoadingOverlay" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="LoadingOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.05, 0.05, 0.07, 0.85)
+
+[node name="CenterContainer" type="CenterContainer" parent="LoadingOverlay/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LoadingVBox" type="VBoxContainer" parent="LoadingOverlay/ColorRect/CenterContainer"]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="LoadingLabel" type="Label" parent="LoadingOverlay/ColorRect/CenterContainer/LoadingVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Загрузка..."
+horizontal_alignment = 1
+
+[node name="LoadingProgressBar" type="ProgressBar" parent="LoadingOverlay/ColorRect/CenterContainer/LoadingVBox"]
+layout_mode = 2
+max_value = 100.0
+value = 0.0

@@ -1,8 +1,9 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://qx73eoohiidr"]
 
-[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_mmenu"]
+[ext_resource type="Script" uid="uid://bctllst4n1ltf" path="res://scripts/main_menu.gd" id="1_mmenu"]
+[ext_resource type="Texture2D" uid="uid://ci7dqixmg1al6" path="res://assets/background/menu.png" id="2_menubg"]
 
-[node name="MainMenu" type="Control"]
+[node name="MainMenu" type="Control" unique_id=1596174958]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,20 +12,26 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_mmenu")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="TextureRect" parent="." unique_id=699144951]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.11, 0.12, 0.15, 1)
+texture = ExtResource("2_menubg")
+expand_mode = 1
+stretch_mode = 6
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1330488925]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 232.0
+offset_top = -196.0
+offset_right = 232.0
+offset_bottom = -215.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 40
@@ -32,41 +39,40 @@ theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
 
-[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer" unique_id=1118851176]
 layout_mode = 2
 
-[node name="MenuVBox" type="VBoxContainer" parent="MarginContainer/CenterContainer"]
+[node name="MenuVBox" type="VBoxContainer" parent="MarginContainer/CenterContainer" unique_id=1705079578]
 custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
 theme_override_constants/separation = 24
 
-[node name="TitleLabel" type="Label" parent="MarginContainer/CenterContainer/MenuVBox"]
+[node name="TitleLabel" type="Label" parent="MarginContainer/CenterContainer/MenuVBox" unique_id=568678895]
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "2D Tower Defense"
 horizontal_alignment = 1
 
-[node name="ButtonsVBox" type="VBoxContainer" parent="MarginContainer/CenterContainer/MenuVBox"]
+[node name="ButtonsVBox" type="VBoxContainer" parent="MarginContainer/CenterContainer/MenuVBox" unique_id=1000120522]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="PlayButton" type="Button" parent="MarginContainer/CenterContainer/MenuVBox/ButtonsVBox"]
+[node name="PlayButton" type="Button" parent="MarginContainer/CenterContainer/MenuVBox/ButtonsVBox" unique_id=2077333107]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Играть"
 
-[node name="SettingsButton" type="Button" parent="MarginContainer/CenterContainer/MenuVBox/ButtonsVBox"]
+[node name="SettingsButton" type="Button" parent="MarginContainer/CenterContainer/MenuVBox/ButtonsVBox" unique_id=1604345572]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Настройки"
 
-[node name="QuitButton" type="Button" parent="MarginContainer/CenterContainer/MenuVBox/ButtonsVBox"]
+[node name="QuitButton" type="Button" parent="MarginContainer/CenterContainer/MenuVBox/ButtonsVBox" unique_id=1811763616]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Выход"
 
-
-[node name="LoadingOverlay" type="Control" parent="."]
+[node name="LoadingOverlay" type="Control" parent="." unique_id=1234391658]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -75,7 +81,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ColorRect" type="ColorRect" parent="LoadingOverlay"]
+[node name="ColorRect" type="ColorRect" parent="LoadingOverlay" unique_id=1432516517]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -84,7 +90,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.05, 0.05, 0.07, 0.85)
 
-[node name="CenterContainer" type="CenterContainer" parent="LoadingOverlay/ColorRect"]
+[node name="CenterContainer" type="CenterContainer" parent="LoadingOverlay/ColorRect" unique_id=1868040564]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -92,18 +98,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="LoadingVBox" type="VBoxContainer" parent="LoadingOverlay/ColorRect/CenterContainer"]
+[node name="LoadingVBox" type="VBoxContainer" parent="LoadingOverlay/ColorRect/CenterContainer" unique_id=1810512153]
 custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="LoadingLabel" type="Label" parent="LoadingOverlay/ColorRect/CenterContainer/LoadingVBox"]
+[node name="LoadingLabel" type="Label" parent="LoadingOverlay/ColorRect/CenterContainer/LoadingVBox" unique_id=263644582]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Загрузка..."
 horizontal_alignment = 1
 
-[node name="LoadingProgressBar" type="ProgressBar" parent="LoadingOverlay/ColorRect/CenterContainer/LoadingVBox"]
+[node name="LoadingProgressBar" type="ProgressBar" parent="LoadingOverlay/ColorRect/CenterContainer/LoadingVBox" unique_id=1657181263]
 layout_mode = 2
-max_value = 100.0
-value = 0.0

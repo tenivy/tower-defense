@@ -9,6 +9,12 @@
 [ext_resource type="Texture2D" path="res://assets/menu/Продолжить.png" id="7_pcont"]
 [ext_resource type="Texture2D" path="res://assets/menu/Настройки.png" id="8_pset"]
 [ext_resource type="Texture2D" path="res://assets/menu/Выход.png" id="9_pquit"]
+[ext_resource type="Script" path="res://scripts/shop_visual.gd" id="10_shop"]
+[ext_resource type="Theme" path="res://assets/ui/shop/shop-theme.tres" id="11_shop_theme"]
+[ext_resource type="Texture2D" path="res://assets/ui/shop/medieval-frame-v1.png" id="12_shop_frame"]
+[ext_resource type="Texture2D" path="res://assets/ui/shop/divider.svg" id="13_shop_divider"]
+[ext_resource type="Texture2D" path="res://assets/ui/shop/card-normal.svg" id="14_shop_card"]
+[ext_resource type="Texture2D" path="res://assets/ui/shop/coin.svg" id="15_shop_coin"]
 
 [sub_resource type="StyleBoxTexture" id="sb_cont_normal"]
 texture = ExtResource("7_pcont")
@@ -106,56 +112,138 @@ texture = ExtResource("4_tipki")
 [node name="Defenders" type="Node2D" parent="." unique_id=614140325]
 
 [node name="Shop" type="Panel" parent="." unique_id=773151431]
-offset_left = -16.0
-offset_top = -37.0
-offset_right = 105.0
-offset_bottom = 504.0
+texture_filter = 1
+offset_left = -13.0
+offset_top = -30.0
+offset_right = 219.0
+offset_bottom = 666.0
+theme = ExtResource("11_shop_theme")
+script = ExtResource("10_shop")
+
+[node name="Frame" type="TextureRect" parent="Shop"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("12_shop_frame")
+expand_mode = 1
+
+[node name="Title" type="Label" parent="Shop"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 82.0
+offset_right = 214.0
+offset_bottom = 114.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 24
+text = "Магазин"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="KnightButton" type="Button" parent="Shop" unique_id=835927241]
 layout_mode = 0
-offset_left = 1.0
-offset_top = 59.0
-offset_right = 120.0
-offset_bottom = 121.0
+offset_left = 18.0
+offset_top = 266.0
+offset_right = 214.0
+offset_bottom = 350.0
+mouse_default_cursor_shape = 2
 text = "Knight"
+alignment = 0
 
 [node name="StartRoundButton" type="Button" parent="Shop" unique_id=873848239]
 layout_mode = 0
-offset_left = 1.0
-offset_top = 26.0
-offset_right = 120.0
-offset_bottom = 57.0
+offset_left = 18.0
+offset_top = 176.0
+offset_right = 214.0
+offset_bottom = 224.0
+mouse_default_cursor_shape = 2
 text = "Начать раунд"
 
 [node name="RoundLabel" type="Label" parent="Shop" unique_id=1990990604]
 layout_mode = 0
-offset_left = 29.0
-offset_right = 91.0
-offset_bottom = 23.0
+offset_left = 18.0
+offset_top = 128.0
+offset_right = 214.0
+offset_bottom = 154.0
+mouse_filter = 2
 text = "Раунд 0"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ArcherButton" type="Button" parent="Shop" unique_id=1126591665]
 layout_mode = 0
-offset_left = 1.0
-offset_top = 123.0
-offset_right = 120.0
-offset_bottom = 185.0
+offset_left = 18.0
+offset_top = 366.0
+offset_right = 214.0
+offset_bottom = 450.0
+mouse_default_cursor_shape = 2
 text = "Archer"
+alignment = 0
 
 [node name="WizardButton" type="Button" parent="Shop" unique_id=1444070040]
 layout_mode = 0
-offset_left = 1.0
-offset_top = 187.0
-offset_right = 120.0
-offset_bottom = 249.0
+offset_left = 18.0
+offset_top = 466.0
+offset_right = 214.0
+offset_bottom = 550.0
+mouse_default_cursor_shape = 2
 text = "Wizard"
+alignment = 0
+
+[node name="TopDivider" type="TextureRect" parent="Shop"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 236.0
+offset_right = 214.0
+offset_bottom = 256.0
+mouse_filter = 2
+texture = ExtResource("13_shop_divider")
+
+[node name="BottomDivider" type="TextureRect" parent="Shop"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 570.0
+offset_right = 214.0
+offset_bottom = 590.0
+mouse_filter = 2
+texture = ExtResource("13_shop_divider")
+
+[node name="GoldFrame" type="NinePatchRect" parent="Shop"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 602.0
+offset_right = 214.0
+offset_bottom = 646.0
+mouse_filter = 2
+texture = ExtResource("14_shop_card")
+patch_margin_left = 9
+patch_margin_top = 9
+patch_margin_right = 9
+patch_margin_bottom = 9
+
+[node name="GoldCoin" type="TextureRect" parent="Shop"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 614.0
+offset_right = 52.0
+offset_bottom = 634.0
+mouse_filter = 2
+texture = ExtResource("15_shop_coin")
+expand_mode = 1
 
 [node name="GoldLabel" type="Label" parent="." unique_id=366469932]
-offset_left = 6.0
-offset_top = 473.0
-offset_right = 83.0
-offset_bottom = 499.0
+texture_filter = 1
+offset_left = 49.0
+offset_top = 582.0
+offset_right = 191.0
+offset_bottom = 606.0
+mouse_filter = 2
+theme = ExtResource("11_shop_theme")
 text = "Gold: 100"
+vertical_alignment = 1
 
 [node name="Enemies" type="Node2D" parent="." unique_id=846401855]
 

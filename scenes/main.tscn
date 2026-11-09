@@ -83,6 +83,10 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Map" type="Node2D" parent="." unique_id=14236331]
 
+[node name="MusicDangerStart" type="Marker2D" parent="Map"]
+position = Vector2(695, 94)
+metadata/description = "Exit of the first large bridge toward the upper loop"
+
 [node name="EnemyPath" type="Line2D" parent="Map" unique_id=1198063913]
 position = Vector2(5900.789, 985.43713)
 scale = Vector2(20.693808, 19.804766)

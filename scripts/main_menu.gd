@@ -14,6 +14,7 @@ var _is_loading = false
 
 
 func _ready() -> void:
+	MusicManager.play_menu()
 	play_button.pressed.connect(_on_play_pressed)
 	settings_button.pressed.connect(_on_settings_pressed)
 	quit_button.pressed.connect(_on_quit_pressed)

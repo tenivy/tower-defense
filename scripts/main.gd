@@ -11,6 +11,9 @@ extends Node2D
 @onready var castle_health_bar = $CastleHealthBar
 @onready var round_label = $Shop/RoundLabel
 
+var _music_danger_segment: int = -1
+var _music_danger_fraction: float = 0.0
+
 var goblin_scene = preload("res://scenes/goblin.tscn")
 var werewolf_scene = preload("res://scenes/werewolf.tscn")
 var wizard_scene = preload("res://scenes/wizard.tscn")
@@ -46,6 +49,8 @@ func update_gold_label():
 
 func _ready():
 	Engine.time_scale = 1.0
+	_configure_music_danger_zone()
+	MusicManager.play_gameplay()
 	print("Игра запущена")
 	update_gold_label()
 	update_round_label()
@@ -79,6 +84,47 @@ func start_defender_placement(scene):
 func _process(_delta):
 	if preview_defender:
 		update_preview()
+	_update_music_danger()
+
+func _configure_music_danger_zone() -> void:
+	# The marker is at the exit of the first large bridge, in travel direction.
+	var marker_position: Vector2 = $Map/MusicDangerStart.global_position
+	var points: PackedVector2Array = enemy_path.get_global_transform() * enemy_path.points
+	var nearest_distance := INF
+	for index in range(points.size() - 1):
+		var segment := points[index + 1] - points[index]
+		if segment.is_zero_approx():
+			continue
+		var fraction := clampf((marker_position - points[index]).dot(segment) / segment.length_squared(), 0.0, 1.0)
+		var distance := marker_position.distance_squared_to(points[index] + segment * fraction)
+		if distance < nearest_distance:
+			nearest_distance = distance
+			_music_danger_segment = index
+			_music_danger_fraction = fraction
+
+func _update_music_danger() -> void:
+	var danger := false
+	if not defeat_shown:
+		for enemy in $Enemies.get_children():
+			if _enemy_is_past_music_marker(enemy):
+				danger = true
+				break
+	MusicManager.set_danger_active(danger)
+
+func _enemy_is_past_music_marker(enemy: Node2D) -> bool:
+	if _music_danger_segment < 0 or enemy.is_dead or enemy.is_queued_for_deletion():
+		return false
+	var points: PackedVector2Array = enemy.path_points
+	if points.size() <= _music_danger_segment + 1:
+		return false
+	var target_index := _music_danger_segment + 1
+	if enemy.current_point > target_index:
+		return true
+	if enemy.current_point < target_index:
+		return false
+	var segment := points[target_index] - points[target_index - 1]
+	var fraction := (enemy.global_position - points[target_index - 1]).dot(segment) / segment.length_squared()
+	return fraction >= _music_danger_fraction
 
 func update_preview():
 	var mouse_position = get_global_mouse_position()
@@ -165,6 +211,7 @@ func game_over():
 	if defeat_shown:
 		return
 	defeat_shown = true
+	MusicManager.set_danger_active(false)
 	round_in_progress = false
 	$SpawnTimer.stop()
 	$AutoStartTimer.stop()

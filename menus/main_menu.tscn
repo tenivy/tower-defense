@@ -6,6 +6,31 @@
 [ext_resource type="Texture2D" path="res://assets/menu/Играть.png" id="4_play"]
 [ext_resource type="Texture2D" path="res://assets/menu/Настройки.png" id="5_set"]
 [ext_resource type="Texture2D" path="res://assets/menu/Выход.png" id="6_quit"]
+[ext_resource type="Material" path="res://assets/ui/menu/clean-menu-art.tres" id="7_clean_material"]
+[ext_resource type="Texture2D" path="res://assets/ui/loading/castle-dawn-v1.png" id="8_loading_art"]
+[ext_resource type="Theme" path="res://assets/ui/shop/shop-theme.tres" id="9_loading_theme"]
+[ext_resource type="Script" path="res://scripts/loading_overlay.gd" id="10_loading_script"]
+[ext_resource type="Texture2D" path="res://assets/ui/loading/gold-fill.svg" id="11_loading_fill"]
+[ext_resource type="Script" path="res://scripts/pixel_health_bar.gd" id="12_progress_script"]
+[ext_resource type="Texture2D" path="res://assets/ui/shop/card-normal.svg" id="13_loading_frame"]
+[ext_resource type="Texture2D" path="res://assets/ui/shop/divider.svg" id="14_loading_divider"]
+
+[sub_resource type="Gradient" id="Gradient_loading_shade"]
+offsets = PackedFloat32Array(0, 1)
+colors = PackedColorArray(0.02, 0.03, 0.05, 0, 0.02, 0.03, 0.05, 0.8)
+
+[sub_resource type="GradientTexture2D" id="Texture_loading_shade"]
+gradient = SubResource("Gradient_loading_shade")
+width = 2
+height = 256
+fill_from = Vector2(0.5, 0.3)
+fill_to = Vector2(0.5, 1)
+
+[sub_resource type="StyleBoxTexture" id="Style_loading_fill"]
+texture = ExtResource("11_loading_fill")
+axis_stretch_horizontal = 1
+
+[sub_resource type="StyleBoxEmpty" id="sb_menu_focus"]
 
 [sub_resource type="StyleBoxTexture" id="sb_play_normal"]
 texture = ExtResource("4_play")
@@ -107,6 +132,8 @@ stretch_mode = 5
 layout_mode = 2
 
 [node name="PlayButton" type="Button" parent="MarginContainer/CenterContainer/MenuVBox/PlayRow" unique_id=2077333107]
+texture_filter = 1
+material = ExtResource("7_clean_material")
 custom_minimum_size = Vector2(280, 105)
 layout_mode = 2
 focus_mode = 0
@@ -114,7 +141,7 @@ theme_override_styles/normal = SubResource("sb_play_normal")
 theme_override_styles/hover = SubResource("sb_play_hover")
 theme_override_styles/hover_pressed = SubResource("sb_play_pressed")
 theme_override_styles/pressed = SubResource("sb_play_pressed")
-theme_override_styles/focus = SubResource("sb_play_normal")
+theme_override_styles/focus = SubResource("sb_menu_focus")
 theme_override_styles/disabled = SubResource("sb_play_disabled")
 
 [node name="BottomRow" type="HBoxContainer" parent="MarginContainer/CenterContainer/MenuVBox"]
@@ -122,6 +149,8 @@ layout_mode = 2
 theme_override_constants/separation = 10
 
 [node name="SettingsButton" type="Button" parent="MarginContainer/CenterContainer/MenuVBox/BottomRow" unique_id=1604345572]
+texture_filter = 1
+material = ExtResource("7_clean_material")
 custom_minimum_size = Vector2(280, 105)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -130,10 +159,12 @@ theme_override_styles/normal = SubResource("sb_set_normal")
 theme_override_styles/hover = SubResource("sb_set_hover")
 theme_override_styles/hover_pressed = SubResource("sb_set_pressed")
 theme_override_styles/pressed = SubResource("sb_set_pressed")
-theme_override_styles/focus = SubResource("sb_set_normal")
+theme_override_styles/focus = SubResource("sb_menu_focus")
 theme_override_styles/disabled = SubResource("sb_set_disabled")
 
 [node name="QuitButton" type="Button" parent="MarginContainer/CenterContainer/MenuVBox/BottomRow" unique_id=1811763616]
+texture_filter = 1
+material = ExtResource("7_clean_material")
 custom_minimum_size = Vector2(280, 105)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -142,17 +173,21 @@ theme_override_styles/normal = SubResource("sb_quit_normal")
 theme_override_styles/hover = SubResource("sb_quit_hover")
 theme_override_styles/hover_pressed = SubResource("sb_quit_pressed")
 theme_override_styles/pressed = SubResource("sb_quit_pressed")
-theme_override_styles/focus = SubResource("sb_quit_normal")
+theme_override_styles/focus = SubResource("sb_menu_focus")
 theme_override_styles/disabled = SubResource("sb_quit_disabled")
 
 [node name="LoadingOverlay" type="Control" parent="." unique_id=1234391658]
 visible = false
+z_index = 100
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("9_loading_theme")
+script = ExtResource("10_loading_script")
 
 [node name="ColorRect" type="ColorRect" parent="LoadingOverlay" unique_id=1432516517]
 layout_mode = 1
@@ -161,26 +196,119 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.05, 0.05, 0.07, 0.85)
+color = Color(0.025, 0.035, 0.055, 1)
 
-[node name="CenterContainer" type="CenterContainer" parent="LoadingOverlay/ColorRect" unique_id=1868040564]
+[node name="Background" type="TextureRect" parent="LoadingOverlay/ColorRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("8_loading_art")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Shade" type="TextureRect" parent="LoadingOverlay/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("Texture_loading_shade")
+expand_mode = 1
+
+[node name="Logo" type="TextureRect" parent="LoadingOverlay/ColorRect"]
+material = ExtResource("7_clean_material")
+layout_mode = 1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -240.0
+offset_top = 24.0
+offset_right = 240.0
+offset_bottom = 112.0
+mouse_filter = 2
+texture = ExtResource("3_title")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="LoadingFrame" type="NinePatchRect" parent="LoadingOverlay/ColorRect"]
+layout_mode = 1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -812.0
+offset_top = -202.0
+offset_right = -28.0
+offset_bottom = -24.0
+mouse_filter = 2
+texture = ExtResource("13_loading_frame")
+patch_margin_left = 9
+patch_margin_top = 9
+patch_margin_right = 9
+patch_margin_bottom = 9
+
+[node name="CenterContainer" type="CenterContainer" parent="LoadingOverlay/ColorRect" unique_id=1868040564]
+layout_mode = 1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -792.0
+offset_top = -188.0
+offset_right = -48.0
+offset_bottom = -38.0
+mouse_filter = 2
 
 [node name="LoadingVBox" type="VBoxContainer" parent="LoadingOverlay/ColorRect/CenterContainer" unique_id=1810512153]
-custom_minimum_size = Vector2(320, 0)
+custom_minimum_size = Vector2(716, 0)
 layout_mode = 2
-theme_override_constants/separation = 16
+theme_override_constants/separation = 8
+mouse_filter = 2
 
 [node name="LoadingLabel" type="Label" parent="LoadingOverlay/ColorRect/CenterContainer/LoadingVBox" unique_id=263644582]
+custom_minimum_size = Vector2(0, 28)
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Загрузка..."
+theme_override_font_sizes/font_size = 24
+text = "Подготовка обороны"
 horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
+
+[node name="StatusLabel" type="Label" parent="LoadingOverlay/ColorRect/CenterContainer/LoadingVBox"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.83, 0.76, 0.61, 1)
+text = "Собираем защитников..."
+horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2
 
 [node name="LoadingProgressBar" type="ProgressBar" parent="LoadingOverlay/ColorRect/CenterContainer/LoadingVBox" unique_id=1657181263]
+custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
+mouse_filter = 2
+theme_override_styles/fill = SubResource("Style_loading_fill")
+script = ExtResource("12_progress_script")
+
+[node name="Ornament" type="TextureRect" parent="LoadingOverlay/ColorRect/CenterContainer/LoadingVBox"]
+custom_minimum_size = Vector2(196, 12)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 2
+texture = ExtResource("14_loading_divider")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TipLabel" type="Label" parent="LoadingOverlay/ColorRect/CenterContainer/LoadingVBox"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.69, 0.66, 0.53, 1)
+text = "Совет: Лучники прикрывают рыцарей издалека"
+horizontal_alignment = 1
+vertical_alignment = 1
+mouse_filter = 2

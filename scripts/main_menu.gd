@@ -25,7 +25,7 @@ func _on_play_pressed() -> void:
 	_is_loading = true
 
 	# Показываем оверлей и блокируем кнопку от повторных нажатий
-	loading_overlay.visible = true
+	loading_overlay.show_loading()
 	play_button.disabled = true
 
 	_load_game_scene()
@@ -49,12 +49,14 @@ func _load_game_scene() -> void:
 		if status == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
 			# В массиве progress один элемент — доля загрузки от 0 до 1
 			if progress.size() > 0:
-				loading_progress_bar.value = progress[0] * 100.0
+				loading_overlay.set_progress(progress[0] * 100.0)
 			await get_tree().process_frame
 		elif status == ResourceLoader.THREAD_LOAD_LOADED:
-			loading_progress_bar.value = 100.0
 			var loaded_scene = ResourceLoader.load_threaded_get(GAME_SCENE_PATH)
-			get_tree().change_scene_to_packed(loaded_scene)
+			await loading_overlay.finish_loading()
+			var change_error = get_tree().change_scene_to_packed(loaded_scene)
+			if change_error != OK:
+				_reset_loading_state()
 			return
 		else:
 			# THREAD_LOAD_FAILED или THREAD_LOAD_INVALID_RESOURCE
@@ -66,7 +68,7 @@ func _load_game_scene() -> void:
 # Возвращает меню в исходное состояние после ошибки загрузки
 func _reset_loading_state() -> void:
 	_is_loading = false
-	loading_overlay.visible = false
+	loading_overlay.hide_loading()
 	play_button.disabled = false
 
 

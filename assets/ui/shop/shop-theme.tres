@@ -4,6 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://dgah2avhkhp5r" path="res://assets/ui/shop/card-normal.svg" id="2_normal"]
 [ext_resource type="Texture2D" uid="uid://bhn5qv6obdrqm" path="res://assets/ui/shop/card-hover.svg" id="3_hover"]
 [ext_resource type="Texture2D" uid="uid://b410v0ixxbjaj" path="res://assets/ui/shop/card-pressed.svg" id="4_pressed"]
+[ext_resource type="Texture2D" path="res://assets/ui/shop/check-off.svg" id="5_check_off"]
+[ext_resource type="Texture2D" path="res://assets/ui/shop/check-on.svg" id="6_check_on"]
+[ext_resource type="Texture2D" path="res://assets/ui/shop/health-fill.svg" id="7_health_fill"]
 
 [sub_resource type="StyleBoxTexture" id="Style_normal"]
 content_margin_left = 10.0
@@ -52,6 +55,24 @@ texture_margin_bottom = 9.0
 
 [sub_resource type="StyleBoxEmpty" id="Style_empty"]
 
+[sub_resource type="StyleBoxFlat" id="Style_option_hover"]
+bg_color = Color(0.16, 0.19, 0.22, 0.8)
+
+[sub_resource type="StyleBoxTexture" id="Style_health_background"]
+content_margin_left = 6.0
+content_margin_top = 6.0
+content_margin_right = 6.0
+content_margin_bottom = 6.0
+texture = ExtResource("2_normal")
+texture_margin_left = 9.0
+texture_margin_top = 9.0
+texture_margin_right = 9.0
+texture_margin_bottom = 9.0
+
+[sub_resource type="StyleBoxTexture" id="Style_health_fill"]
+texture = ExtResource("7_health_fill")
+axis_stretch_horizontal = 1
+
 [resource]
 default_font = ExtResource("1_font")
 default_font_size = 16
@@ -68,8 +89,37 @@ Button/styles/hover = SubResource("Style_hover")
 Button/styles/hover_pressed = SubResource("Style_pressed")
 Button/styles/normal = SubResource("Style_normal")
 Button/styles/pressed = SubResource("Style_pressed")
+CheckBox/colors/font_color = Color(0.95, 0.81, 0.54, 1)
+CheckBox/colors/font_focus_color = Color(1, 0.91, 0.68, 1)
+CheckBox/colors/font_hover_color = Color(1, 0.91, 0.68, 1)
+CheckBox/colors/font_pressed_color = Color(1, 0.91, 0.68, 1)
+CheckBox/colors/font_hover_pressed_color = Color(1, 0.91, 0.68, 1)
+CheckBox/colors/font_shadow_color = Color(0.04, 0.05, 0.07, 1)
+CheckBox/constants/h_separation = 8
+CheckBox/constants/shadow_offset_x = 1
+CheckBox/constants/shadow_offset_y = 2
+CheckBox/icons/checked = ExtResource("6_check_on")
+CheckBox/icons/unchecked = ExtResource("5_check_off")
+CheckBox/icons/checked_disabled = ExtResource("6_check_on")
+CheckBox/icons/unchecked_disabled = ExtResource("5_check_off")
+CheckBox/styles/normal = SubResource("Style_empty")
+CheckBox/styles/pressed = SubResource("Style_empty")
+CheckBox/styles/disabled = SubResource("Style_empty")
+CheckBox/styles/hover = SubResource("Style_option_hover")
+CheckBox/styles/hover_pressed = SubResource("Style_option_hover")
+CheckBox/styles/focus = SubResource("Style_focus")
 Label/colors/font_color = Color(0.95, 0.81, 0.54, 1)
 Label/colors/font_shadow_color = Color(0.04, 0.05, 0.07, 1)
 Label/constants/shadow_offset_x = 1
 Label/constants/shadow_offset_y = 2
 Panel/styles/panel = SubResource("Style_empty")
+ProgressBar/styles/background = SubResource("Style_health_background")
+ProgressBar/styles/fill = SubResource("Style_health_fill")
+ProgressBar/colors/font_color = Color(1, 0.94, 0.76, 1)
+ProgressBar/colors/font_outline_color = Color(0.04, 0.07, 0.07, 1)
+ProgressBar/constants/outline_size = 2
+TooltipPanel/styles/panel = SubResource("Style_normal")
+TooltipLabel/colors/font_color = Color(0.95, 0.81, 0.54, 1)
+TooltipLabel/colors/font_shadow_color = Color(0.04, 0.05, 0.07, 1)
+TooltipLabel/constants/shadow_offset_x = 1
+TooltipLabel/constants/shadow_offset_y = 2

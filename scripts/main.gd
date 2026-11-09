@@ -6,6 +6,7 @@ extends Node2D
 
 @onready var defenders = $Defenders
 @onready var enemy_path = $Map/EnemyPath
+@onready var placement_map = $Map/Sprite2D/PlacementRules
 @onready var gold_label = $GoldLabel
 @onready var castle_health_bar = $CastleHealthBar
 @onready var round_label = $Shop/RoundLabel
@@ -13,6 +14,7 @@ extends Node2D
 var goblin_scene = preload("res://scenes/goblin.tscn")
 var werewolf_scene = preload("res://scenes/werewolf.tscn")
 var wizard_scene = preload("res://scenes/wizard.tscn")
+var catapult_scene = preload("res://scenes/catapult.tscn")
 
 var preview_defender
 var selected_defender = false
@@ -21,11 +23,13 @@ var defender_click_radius = 25
 
 var castle_health = 100
 var castle_max_health = 100
+var defeat_shown: bool = false
 
 var archer_scene = preload("res://scenes/archer.tscn")
 var placement_scene: PackedScene = null
 
 var round_in_progress = false
+var auto_start_enabled: bool = false
 var current_round = 0
 var enemies_to_spawn = 5
 var enemies_spawned = 0
@@ -41,9 +45,15 @@ func update_gold_label():
 	gold_label.text = "Gold: " + str(gold)
 
 func _ready():
+	Engine.time_scale = 1.0
 	print("Игра запущена")
 	update_gold_label()
+	update_round_label()
 	$DefenderPanel.visible = false
+
+func _exit_tree() -> void:
+	# Speed is local to this game session, not the menu or the next game.
+	Engine.time_scale = 1.0
 
 func select_knight():
 	start_defender_placement(defender_scene)
@@ -53,6 +63,9 @@ func select_archer():
 
 func select_wizard():
 	start_defender_placement(wizard_scene)
+
+func select_catapult():
+	start_defender_placement(catapult_scene)
 
 func start_defender_placement(scene):
 	selected_defender = true
@@ -89,7 +102,10 @@ func _input(event):
 
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			var mouse_position = get_global_mouse_position()
+			var mouse_position: Vector2 = get_canvas_transform().affine_inverse() * event.position
+			# Ярлык магазина тоже относится к UI, даже когда панель скрыта.
+			if $Shop.is_pointer_over_shop(mouse_position):
+				return
 
 			# Не обрабатываем клики по самой панели
 			if $DefenderPanel.visible:
@@ -99,9 +115,6 @@ func _input(event):
 
 			# Если Рыцарь выбран для установки — ставим
 			if selected_defender:
-				var shop_rect = $Shop.get_global_rect()
-				if shop_rect.has_point(mouse_position):
-					return
 				place_defender(mouse_position)
 				return
 
@@ -133,6 +146,8 @@ func place_defender(map_position: Vector2):
 	selected_defender = false
 
 func damage_castle(amount: int):
+	if defeat_shown:
+		return
 	castle_health -= amount
 
 	if castle_health < 0:
@@ -147,11 +162,22 @@ func damage_castle(amount: int):
 		game_over()
 
 func game_over():
+	if defeat_shown:
+		return
+	defeat_shown = true
+	round_in_progress = false
+	$SpawnTimer.stop()
+	$AutoStartTimer.stop()
+	cancel_defender_placement()
+	deselect_placed_defender()
+	$PauseMenu/Overlay.hide()
 	print("ПОРАЖЕНИЕ! Замок разрушен.")
-	get_tree().paused = true
+	$DefeatMenu.show_defeat(current_round)
 
 func can_place_defender(map_position: Vector2) -> bool:
 	if preview_defender and gold < preview_defender.cost:
+		return false
+	if placement_map.is_blocked(map_position):
 		return false
 	if is_too_close_to_path(map_position):
 		return false
@@ -212,12 +238,14 @@ func spawn_enemy():
 	enemies_spawned += 1
 
 func start_round():
-	if round_in_progress:
+	if round_in_progress or castle_health <= 0:
 		return
 
+	$AutoStartTimer.stop()
 	round_in_progress = true
 	current_round += 1
 	update_round_label()
+	$Shop.set_collapsed(true)
 
 	enemies_to_spawn = 5 + (current_round - 1) * 2
 	enemies_spawned = 0
@@ -253,12 +281,33 @@ func enemy_finished():
 		end_round()
 
 func end_round():
-	add_gold(round_reward)
-
+	if not round_in_progress:
+		return
 	round_in_progress = false
+	add_gold(round_reward)
+	update_round_label()
 
 	print("Раунд ", current_round, " завершён!")
 	print("Награда за раунд: ", round_reward)
+	_queue_auto_start()
+
+func _on_auto_start_toggled(enabled: bool) -> void:
+	auto_start_enabled = enabled
+	if enabled:
+		_queue_auto_start()
+	else:
+		$AutoStartTimer.stop()
+
+func _queue_auto_start() -> void:
+	if auto_start_enabled and not round_in_progress and castle_health > 0:
+		$AutoStartTimer.start()
+
+func _on_auto_start_timer_timeout() -> void:
+	if auto_start_enabled and castle_health > 0:
+		start_round()
+
+func _on_speed_toggled(enabled: bool) -> void:
+	Engine.time_scale = 3.0 if enabled else 1.0
 
 func _on_start_round_button_pressed():
 	start_round()
@@ -272,6 +321,11 @@ func cancel_defender_placement():
 
 func update_round_label():
 	round_label.text = "Раунд " + str(current_round)
+	$Shop/StartRoundButton.disabled = round_in_progress
+	if round_in_progress:
+		$Shop/StartRoundButton.text = "Раунд идёт"
+	else:
+		$Shop/StartRoundButton.text = "Начать раунд" if current_round == 0 else "Следующий раунд"
 
 func get_defender_at(map_position: Vector2):
 	var best_defender = null
@@ -334,11 +388,13 @@ func update_upgrade_button():
 	$DefenderPanel/UpgradeButton.visible = true
 	
 	if not selected_placed_defender.can_upgrade:
-		$DefenderPanel/UpgradeButton.text = "Улучшение недоступно"
+		$DefenderPanel/UpgradeButton.text = "Без улучшения"
+		$DefenderPanel/UpgradeButton.tooltip_text = "Этот защитник не улучшается"
 		$DefenderPanel/UpgradeButton.disabled = true
 		return
 	
 	var level = selected_placed_defender.upgrade_level
+	$DefenderPanel/UpgradeButton.tooltip_text = ""
 	if level >= 3:
 		$DefenderPanel/UpgradeButton.text = "Макс. уровень"
 		$DefenderPanel/UpgradeButton.disabled = true

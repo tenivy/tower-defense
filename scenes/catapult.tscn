@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://3j64mdnt32bt"]
 
 [ext_resource type="Script" uid="uid://b3ctcooiuv61y" path="res://scripts/defender.gd" id="1_j5fgl"]
-[ext_resource type="PackedScene" uid="uid://bg2sju1pv23g1" path="res://scenes/bolt.tscn" id="2_17n3m"]
+[ext_resource type="PackedScene" uid="uid://d4fb11fqk3lvl" path="res://scenes/rock.tscn" id="2_kb86i"]
 [ext_resource type="Texture2D" uid="uid://b11lwapjuyi4u" path="res://assets/catapult/right/1.png0001.png" id="3_kb86i"]
 [ext_resource type="Texture2D" uid="uid://xxiwr2oembl5" path="res://assets/catapult/right/1.png0004.png" id="4_4ng8l"]
 [ext_resource type="Texture2D" uid="uid://dop5mpv35xw55" path="res://assets/catapult/right/1.png0007.png" id="5_y28t3"]
@@ -159,15 +159,15 @@ rotation = -1.5707964
 script = ExtResource("1_j5fgl")
 damage_by_level = [100, 100, 100]
 attack_range_by_level = [250.0, 250.0, 250.0]
-attack_cooldown_by_level = [4.0, 4.0, 4.0]
+attack_cooldown_by_level = [2.5, 2.5, 2.5]
 can_upgrade = false
-cost = 350
+cost = 500
 damage = 100
-attack_cooldown = 4.0
+attack_cooldown = 2.5
 attack_range = 250.0
 splash_radius = 150.0
 uses_projectile = true
-projectile_scene = ExtResource("2_17n3m")
+projectile_scene = ExtResource("2_kb86i")
 projectile_speed = 450.0
 mirrored_facing = false
 

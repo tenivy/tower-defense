@@ -122,6 +122,10 @@ GLYPHS['э'] = '00000 00000 11110 00001 00111 00001 11110'
 GLYPHS['ю'] = '00000 00000 10010 10101 11101 10101 10010'
 GLYPHS['Ё'] = '01010 00000 11111 10000 11110 10000 11111'
 GLYPHS['ё'] = '01010 00000 01110 10001 11111 10000 01110'
+GLYPHS['к'] = '00000 00000 10001 10010 11100 10010 10001'
+GLYPHS['('] = '00010 00100 01000 01000 01000 00100 00010'
+GLYPHS[')'] = '01000 00100 00010 00010 00010 00100 01000'
+GLYPHS['%'] = '11001 11010 00010 00100 01000 01011 10011'
 
 
 def svg(name, width, height, body):
@@ -160,6 +164,14 @@ svg('divider.svg', 196, 20, '''
 <path fill="#694c2b" d="M5 9h70v2H5zM121 9h70v2h-70z"/>
 <path fill="#bd914b" d="M23 9h52v1H23zM121 9h52v1h-52zM95 3h6v2h2v4h-2v4h-2v5h-2v-5h-2V9h-2V5h2zM85 8h4v2h4v2h-6v-2h-2zM107 8h4v2h-2v2h-6v-2h4z"/>
 <path fill="#f2d28a" d="M97 3h2v7h-2zM95 12h6v1h-6zM72 8h3v4h-3zM121 8h3v4h-3z"/>''')
+
+svg('drawer-chevron.svg', 10, 12, '<path fill="#79502c" d="M6 1h3v2H7v2H5v2h2v2h2v2H6V9H4V7H2V5h2V3h2z"/><path fill="#f2d48a" d="M5 0h3v2H6v2H4v2h2v2h2v2H5V8H3V6H1V4h2V2h2z"/>')
+
+check_base = '<path fill="#51391f" d="M2 0h14v2h2v14h-2v2H2v-2H0V2h2z"/><path fill="{gold}" d="M2 1h14v2h1v12h-2v2H3v-2H1V3h1z"/><path fill="#79502c" d="M3 3h12v12H3z"/><path fill="{fill}" d="M4 4h10v10H4z"/>'
+svg('check-off.svg', 18, 18, check_base.format(gold='#d4ad61', fill='#111a22'))
+svg('check-on.svg', 18, 18, check_base.format(gold='#f2d48a', fill='#263129') + '<path fill="#f2d48a" d="M12 5h2v3h-2v2h-2v2H8v2H6v-2H4V9h2v1h2V8h2V6h2z"/>')
+
+svg('health-fill.svg', 8, 16, '<path fill="#162822" d="M0 0h8v16H0z"/><path fill="#477e3f" d="M0 0h6v16H0z"/><path fill="#93c86d" d="M0 0h6v2H0z"/><path fill="#63a754" d="M0 2h6v4H0z"/><path fill="#2e5934" d="M0 12h6v4H0z"/>')
 
 pixels, chars = [], []
 for index, (char, rows) in enumerate(sorted(GLYPHS.items())):

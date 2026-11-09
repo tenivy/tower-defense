@@ -1,10 +1,59 @@
 [gd_scene format=3 uid="uid://bs72lhuwc7rcr"]
 
 [ext_resource type="Script" uid="uid://4m04d3dtceh8" path="res://scripts/main.gd" id="1_tbgi4"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="6_pause"]
 [ext_resource type="PackedScene" uid="uid://d3hhl01wtkq11" path="res://scenes/defender.tscn" id="2_tefeu"]
 [ext_resource type="Texture2D" path="res://assets/IMG_2027.PNG" id="3_o6xl0"]
 [ext_resource type="Texture2D" uid="uid://2mg16rywqokl" path="res://assets/background/5.png0021.png" id="4_tipki"]
 [ext_resource type="PackedScene" uid="uid://d2r3d4jv3a2xr" path="res://scenes/enemy.tscn" id="5_85g3d"]
+[ext_resource type="Texture2D" path="res://assets/menu/Продолжить.png" id="7_pcont"]
+[ext_resource type="Texture2D" path="res://assets/menu/Настройки.png" id="8_pset"]
+[ext_resource type="Texture2D" path="res://assets/menu/Выход.png" id="9_pquit"]
+
+[sub_resource type="StyleBoxTexture" id="sb_cont_normal"]
+texture = ExtResource("7_pcont")
+
+[sub_resource type="StyleBoxTexture" id="sb_cont_hover"]
+texture = ExtResource("7_pcont")
+modulate_color = Color(1.2, 1.2, 1.2, 1)
+
+[sub_resource type="StyleBoxTexture" id="sb_cont_pressed"]
+texture = ExtResource("7_pcont")
+modulate_color = Color(0.85, 0.85, 0.85, 1)
+
+[sub_resource type="StyleBoxTexture" id="sb_cont_disabled"]
+texture = ExtResource("7_pcont")
+modulate_color = Color(0.55, 0.55, 0.55, 0.8)
+
+[sub_resource type="StyleBoxTexture" id="sb_pset_normal"]
+texture = ExtResource("8_pset")
+
+[sub_resource type="StyleBoxTexture" id="sb_pset_hover"]
+texture = ExtResource("8_pset")
+modulate_color = Color(1.2, 1.2, 1.2, 1)
+
+[sub_resource type="StyleBoxTexture" id="sb_pset_pressed"]
+texture = ExtResource("8_pset")
+modulate_color = Color(0.85, 0.85, 0.85, 1)
+
+[sub_resource type="StyleBoxTexture" id="sb_pset_disabled"]
+texture = ExtResource("8_pset")
+modulate_color = Color(0.55, 0.55, 0.55, 0.8)
+
+[sub_resource type="StyleBoxTexture" id="sb_pquit_normal"]
+texture = ExtResource("9_pquit")
+
+[sub_resource type="StyleBoxTexture" id="sb_pquit_hover"]
+texture = ExtResource("9_pquit")
+modulate_color = Color(1.2, 1.2, 1.2, 1)
+
+[sub_resource type="StyleBoxTexture" id="sb_pquit_pressed"]
+texture = ExtResource("9_pquit")
+modulate_color = Color(0.85, 0.85, 0.85, 1)
+
+[sub_resource type="StyleBoxTexture" id="sb_pquit_disabled"]
+texture = ExtResource("9_pquit")
+modulate_color = Color(0.55, 0.55, 0.55, 0.8)
 
 [node name="Main" type="Node2D" unique_id=392727660]
 position = Vector2(21, 38)
@@ -158,3 +207,71 @@ text = "Продать"
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="pressed" from="DefenderPanel/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
 [connection signal="pressed" from="DefenderPanel/SellButton" to="." method="_on_sell_button_pressed"]
+
+[node name="PauseMenu" type="CanvasLayer" parent="."]
+process_mode = 3
+script = ExtResource("6_pause")
+
+[node name="Overlay" type="Control" parent="PauseMenu"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="PauseMenu/Overlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.05, 0.05, 0.07, 0.7)
+
+[node name="CenterContainer" type="CenterContainer" parent="PauseMenu/Overlay/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/Overlay/ColorRect/CenterContainer"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="ContinueButton" type="Button" parent="PauseMenu/Overlay/ColorRect/CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(280, 105)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("sb_cont_normal")
+theme_override_styles/hover = SubResource("sb_cont_hover")
+theme_override_styles/hover_pressed = SubResource("sb_cont_pressed")
+theme_override_styles/pressed = SubResource("sb_cont_pressed")
+theme_override_styles/focus = SubResource("sb_cont_normal")
+theme_override_styles/disabled = SubResource("sb_cont_disabled")
+
+[node name="SettingsButton" type="Button" parent="PauseMenu/Overlay/ColorRect/CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(280, 105)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("sb_pset_normal")
+theme_override_styles/hover = SubResource("sb_pset_hover")
+theme_override_styles/hover_pressed = SubResource("sb_pset_pressed")
+theme_override_styles/pressed = SubResource("sb_pset_pressed")
+theme_override_styles/focus = SubResource("sb_pset_normal")
+theme_override_styles/disabled = SubResource("sb_pset_disabled")
+
+[node name="ExitToMenuButton" type="Button" parent="PauseMenu/Overlay/ColorRect/CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(280, 105)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("sb_pquit_normal")
+theme_override_styles/hover = SubResource("sb_pquit_hover")
+theme_override_styles/hover_pressed = SubResource("sb_pquit_pressed")
+theme_override_styles/pressed = SubResource("sb_pquit_pressed")
+theme_override_styles/focus = SubResource("sb_pquit_normal")
+theme_override_styles/disabled = SubResource("sb_pquit_disabled")

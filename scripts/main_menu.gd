@@ -5,9 +5,9 @@ const GAME_SCENE_PATH = "res://scenes/main.tscn"
 
 @onready var loading_overlay = $LoadingOverlay
 @onready var loading_progress_bar = $LoadingOverlay/ColorRect/CenterContainer/LoadingVBox/LoadingProgressBar
-@onready var play_button = $MarginContainer/CenterContainer/MenuVBox/ButtonsVBox/PlayButton
-@onready var settings_button = $MarginContainer/CenterContainer/MenuVBox/ButtonsVBox/SettingsButton
-@onready var quit_button = $MarginContainer/CenterContainer/MenuVBox/ButtonsVBox/QuitButton
+@onready var play_button = $MarginContainer/CenterContainer/MenuVBox/PlayRow/PlayButton
+@onready var settings_button = $MarginContainer/CenterContainer/MenuVBox/BottomRow/SettingsButton
+@onready var quit_button = $MarginContainer/CenterContainer/MenuVBox/BottomRow/QuitButton
 
 # Флаг загрузки: защищает от повторного запуска загрузки
 var _is_loading = false

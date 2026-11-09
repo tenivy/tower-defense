@@ -1,7 +1,56 @@
 [gd_scene format=3 uid="uid://qx73eoohiidr"]
 
 [ext_resource type="Script" uid="uid://bctllst4n1ltf" path="res://scripts/main_menu.gd" id="1_mmenu"]
-[ext_resource type="Texture2D" uid="uid://ci7dqixmg1al6" path="res://assets/background/menu.png" id="2_menubg"]
+[ext_resource type="Texture2D" uid="uid://ci7dqixmg1al6" path="res://assets/menu/menu.png" id="2_menubg"]
+[ext_resource type="Texture2D" path="res://assets/menu/2D Tower Defense.png" id="3_title"]
+[ext_resource type="Texture2D" path="res://assets/menu/Играть.png" id="4_play"]
+[ext_resource type="Texture2D" path="res://assets/menu/Настройки.png" id="5_set"]
+[ext_resource type="Texture2D" path="res://assets/menu/Выход.png" id="6_quit"]
+
+[sub_resource type="StyleBoxTexture" id="sb_play_normal"]
+texture = ExtResource("4_play")
+
+[sub_resource type="StyleBoxTexture" id="sb_play_hover"]
+texture = ExtResource("4_play")
+modulate_color = Color(1.2, 1.2, 1.2, 1)
+
+[sub_resource type="StyleBoxTexture" id="sb_play_pressed"]
+texture = ExtResource("4_play")
+modulate_color = Color(0.85, 0.85, 0.85, 1)
+
+[sub_resource type="StyleBoxTexture" id="sb_play_disabled"]
+texture = ExtResource("4_play")
+modulate_color = Color(0.55, 0.55, 0.55, 0.8)
+
+[sub_resource type="StyleBoxTexture" id="sb_set_normal"]
+texture = ExtResource("5_set")
+
+[sub_resource type="StyleBoxTexture" id="sb_set_hover"]
+texture = ExtResource("5_set")
+modulate_color = Color(1.2, 1.2, 1.2, 1)
+
+[sub_resource type="StyleBoxTexture" id="sb_set_pressed"]
+texture = ExtResource("5_set")
+modulate_color = Color(0.85, 0.85, 0.85, 1)
+
+[sub_resource type="StyleBoxTexture" id="sb_set_disabled"]
+texture = ExtResource("5_set")
+modulate_color = Color(0.55, 0.55, 0.55, 0.8)
+
+[sub_resource type="StyleBoxTexture" id="sb_quit_normal"]
+texture = ExtResource("6_quit")
+
+[sub_resource type="StyleBoxTexture" id="sb_quit_hover"]
+texture = ExtResource("6_quit")
+modulate_color = Color(1.2, 1.2, 1.2, 1)
+
+[sub_resource type="StyleBoxTexture" id="sb_quit_pressed"]
+texture = ExtResource("6_quit")
+modulate_color = Color(0.85, 0.85, 0.85, 1)
+
+[sub_resource type="StyleBoxTexture" id="sb_quit_disabled"]
+texture = ExtResource("6_quit")
+modulate_color = Color(0.55, 0.55, 0.55, 0.8)
 
 [node name="MainMenu" type="Control" unique_id=1596174958]
 layout_mode = 3
@@ -45,32 +94,56 @@ layout_mode = 2
 [node name="MenuVBox" type="VBoxContainer" parent="MarginContainer/CenterContainer" unique_id=1705079578]
 custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
-theme_override_constants/separation = 24
+theme_override_constants/separation = 10
 
-[node name="TitleLabel" type="Label" parent="MarginContainer/CenterContainer/MenuVBox" unique_id=568678895]
+[node name="TitleTextureRect" type="TextureRect" parent="MarginContainer/CenterContainer/MenuVBox"]
+custom_minimum_size = Vector2(0, 130)
 layout_mode = 2
-theme_override_font_sizes/font_size = 48
-text = "2D Tower Defense"
-horizontal_alignment = 1
+texture = ExtResource("3_title")
+expand_mode = 1
+stretch_mode = 5
 
-[node name="ButtonsVBox" type="VBoxContainer" parent="MarginContainer/CenterContainer/MenuVBox" unique_id=1000120522]
+[node name="PlayRow" type="CenterContainer" parent="MarginContainer/CenterContainer/MenuVBox"]
 layout_mode = 2
-theme_override_constants/separation = 12
 
-[node name="PlayButton" type="Button" parent="MarginContainer/CenterContainer/MenuVBox/ButtonsVBox" unique_id=2077333107]
+[node name="PlayButton" type="Button" parent="MarginContainer/CenterContainer/MenuVBox/PlayRow" unique_id=2077333107]
+custom_minimum_size = Vector2(280, 105)
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("sb_play_normal")
+theme_override_styles/hover = SubResource("sb_play_hover")
+theme_override_styles/hover_pressed = SubResource("sb_play_pressed")
+theme_override_styles/pressed = SubResource("sb_play_pressed")
+theme_override_styles/focus = SubResource("sb_play_normal")
+theme_override_styles/disabled = SubResource("sb_play_disabled")
+
+[node name="BottomRow" type="HBoxContainer" parent="MarginContainer/CenterContainer/MenuVBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="SettingsButton" type="Button" parent="MarginContainer/CenterContainer/MenuVBox/BottomRow" unique_id=1604345572]
+custom_minimum_size = Vector2(280, 105)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Играть"
+focus_mode = 0
+theme_override_styles/normal = SubResource("sb_set_normal")
+theme_override_styles/hover = SubResource("sb_set_hover")
+theme_override_styles/hover_pressed = SubResource("sb_set_pressed")
+theme_override_styles/pressed = SubResource("sb_set_pressed")
+theme_override_styles/focus = SubResource("sb_set_normal")
+theme_override_styles/disabled = SubResource("sb_set_disabled")
 
-[node name="SettingsButton" type="Button" parent="MarginContainer/CenterContainer/MenuVBox/ButtonsVBox" unique_id=1604345572]
+[node name="QuitButton" type="Button" parent="MarginContainer/CenterContainer/MenuVBox/BottomRow" unique_id=1811763616]
+custom_minimum_size = Vector2(280, 105)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Настройки"
-
-[node name="QuitButton" type="Button" parent="MarginContainer/CenterContainer/MenuVBox/ButtonsVBox" unique_id=1811763616]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Выход"
+focus_mode = 0
+theme_override_styles/normal = SubResource("sb_quit_normal")
+theme_override_styles/hover = SubResource("sb_quit_hover")
+theme_override_styles/hover_pressed = SubResource("sb_quit_pressed")
+theme_override_styles/pressed = SubResource("sb_quit_pressed")
+theme_override_styles/focus = SubResource("sb_quit_normal")
+theme_override_styles/disabled = SubResource("sb_quit_disabled")
 
 [node name="LoadingOverlay" type="Control" parent="." unique_id=1234391658]
 visible = false

@@ -81,12 +81,6 @@ func update_preview():
 		attack_range_circle.default_color = Color(1.0, 0.2, 0.2, 0.35)
 
 func _input(event):
-	# Escape — вернуться в главное меню
-	if event is InputEventKey:
-		if event.pressed and event.keycode == KEY_ESCAPE:
-			return_to_main_menu()
-			return
-
 	# Отмена установки Рыцаря по ПКМ
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
@@ -118,6 +112,13 @@ func _input(event):
 			else:
 				deselect_placed_defender()
 
+# Escape в игре открывает меню паузы (закрывает его pause_menu.gd)
+func _unhandled_input(event):
+	if event is InputEventKey:
+		if event.pressed and event.keycode == KEY_ESCAPE:
+			$PauseMenu.open_pause()
+			get_viewport().set_input_as_handled()
+
 func place_defender(map_position: Vector2):
 	if not can_place_defender(map_position):
 		return
@@ -148,10 +149,6 @@ func damage_castle(amount: int):
 func game_over():
 	print("ПОРАЖЕНИЕ! Замок разрушен.")
 	get_tree().paused = true
-
-func return_to_main_menu():
-	get_tree().paused = false
-	get_tree().change_scene_to_file("res://menus/main_menu.tscn")
 
 func can_place_defender(map_position: Vector2) -> bool:
 	if preview_defender and gold < preview_defender.cost:

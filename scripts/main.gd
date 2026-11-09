@@ -299,6 +299,8 @@ func deselect_placed_defender():
 func _on_upgrade_button_pressed():
 	if selected_placed_defender == null:
 		return
+	if not selected_placed_defender.can_upgrade:
+		return
 	var level = selected_placed_defender.upgrade_level
 	if level >= 3:
 		return
@@ -325,12 +327,25 @@ func _on_sell_button_pressed():
 	defender.queue_free()
 
 func update_upgrade_button():
+	if selected_placed_defender == null:
+		$DefenderPanel/UpgradeButton.visible = false
+		return
+	
+	$DefenderPanel/UpgradeButton.visible = true
+	
+	if not selected_placed_defender.can_upgrade:
+		$DefenderPanel/UpgradeButton.text = "Улучшение недоступно"
+		$DefenderPanel/UpgradeButton.disabled = true
+		return
+	
 	var level = selected_placed_defender.upgrade_level
 	if level >= 3:
 		$DefenderPanel/UpgradeButton.text = "Макс. уровень"
+		$DefenderPanel/UpgradeButton.disabled = true
 	else:
 		var cost = upgrade_costs_by_level[level - 1]
 		$DefenderPanel/UpgradeButton.text = "Улучшить (" + str(cost) + ")"
+		$DefenderPanel/UpgradeButton.disabled = gold < cost
 
 # Выбирает сцену врага: шанс оборотня растёт с раундом
 func get_enemy_scene() -> PackedScene:

@@ -12,6 +12,7 @@ var upgrade_level: int = 1
 @export var attack_range_by_level = [100.0, 120.0, 140.0]
 @export var attack_cooldown_by_level = [1.0, 0.9, 0.75]
 
+@export var can_upgrade: bool = true
 @export var cost: int = 100
 @export var damage: int = 20
 @export var attack_cooldown: float = 1.0
@@ -110,7 +111,9 @@ func update_stats():
 	attack_cooldown = attack_cooldown_by_level[upgrade_level - 1]
 
 # Улучшение рыцаря
-func upgrade():
+func upgrade(): # или как она у тебя называется
+	if not can_upgrade:
+		return
 	if upgrade_level >= 3:
 		return
 

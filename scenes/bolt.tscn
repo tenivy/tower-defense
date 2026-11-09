@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://bg2sju1pv23g1"]
 
 [ext_resource type="Script" uid="uid://c660e55gahh5i" path="res://scripts/arrow.gd" id="1_hu2p6"]
-[ext_resource type="Texture2D" uid="uid://b3kl44rn6uuhs" path="res://assets/wizard/magic_orb.png" id="2_hu2p6"]
+[ext_resource type="Texture2D" uid="uid://dvyuls0bajuwl" path="res://assets/wizard/magic_orb.png" id="2_hu2p6"]
 
-[node name="Arrow" type="Node2D" unique_id=1046179942]
+[node name="Bolt" type="Node2D" unique_id=1046179942]
 script = ExtResource("1_hu2p6")
 
 [node name="Visual" type="ColorRect" parent="." unique_id=1681683969]

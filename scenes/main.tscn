@@ -23,49 +23,61 @@
 
 [sub_resource type="StyleBoxEmpty" id="sb_menu_focus"]
 
+[sub_resource type="AtlasTexture" id="Texture_pause_continue"]
+atlas = ExtResource("7_pcont")
+region = Rect2(20, 10, 900, 326)
+
+[sub_resource type="AtlasTexture" id="Texture_pause_settings"]
+atlas = ExtResource("8_pset")
+region = Rect2(46, 11, 900, 326)
+
+[sub_resource type="AtlasTexture" id="Texture_pause_exit"]
+atlas = ExtResource("9_pquit")
+region = Rect2(91, 22, 900, 339)
+
 [sub_resource type="StyleBoxTexture" id="sb_cont_normal"]
-texture = ExtResource("7_pcont")
+texture = SubResource("Texture_pause_continue")
 
 [sub_resource type="StyleBoxTexture" id="sb_cont_hover"]
-texture = ExtResource("7_pcont")
+texture = SubResource("Texture_pause_continue")
 modulate_color = Color(1.2, 1.2, 1.2, 1)
 
 [sub_resource type="StyleBoxTexture" id="sb_cont_pressed"]
-texture = ExtResource("7_pcont")
+texture = SubResource("Texture_pause_continue")
 modulate_color = Color(0.85, 0.85, 0.85, 1)
 
 [sub_resource type="StyleBoxTexture" id="sb_cont_disabled"]
-texture = ExtResource("7_pcont")
+texture = SubResource("Texture_pause_continue")
 modulate_color = Color(0.55, 0.55, 0.55, 0.8)
 
 [sub_resource type="StyleBoxTexture" id="sb_pset_normal"]
-texture = ExtResource("8_pset")
+texture = SubResource("Texture_pause_settings")
 
 [sub_resource type="StyleBoxTexture" id="sb_pset_hover"]
-texture = ExtResource("8_pset")
+texture = SubResource("Texture_pause_settings")
 modulate_color = Color(1.2, 1.2, 1.2, 1)
 
 [sub_resource type="StyleBoxTexture" id="sb_pset_pressed"]
-texture = ExtResource("8_pset")
+texture = SubResource("Texture_pause_settings")
 modulate_color = Color(0.85, 0.85, 0.85, 1)
 
 [sub_resource type="StyleBoxTexture" id="sb_pset_disabled"]
-texture = ExtResource("8_pset")
+texture = SubResource("Texture_pause_settings")
 modulate_color = Color(0.55, 0.55, 0.55, 0.8)
 
 [sub_resource type="StyleBoxTexture" id="sb_pquit_normal"]
-texture = ExtResource("9_pquit")
+texture = SubResource("Texture_pause_exit")
 
 [sub_resource type="StyleBoxTexture" id="sb_pquit_hover"]
-texture = ExtResource("9_pquit")
+texture = SubResource("Texture_pause_exit")
 modulate_color = Color(1.2, 1.2, 1.2, 1)
 
 [sub_resource type="StyleBoxTexture" id="sb_pquit_pressed"]
-texture = ExtResource("9_pquit")
+texture = SubResource("Texture_pause_exit")
 modulate_color = Color(0.85, 0.85, 0.85, 1)
 
 [sub_resource type="StyleBoxTexture" id="sb_pquit_disabled"]
-texture = ExtResource("9_pquit")
+texture = SubResource("Texture_pause_exit")
 modulate_color = Color(0.55, 0.55, 0.55, 0.8)
 
 [node name="Main" type="Node2D" unique_id=392727660]
@@ -429,7 +441,7 @@ theme_override_constants/separation = 12
 [node name="ContinueButton" type="Button" parent="PauseMenu/Overlay/ColorRect/CenterContainer/VBoxContainer"]
 texture_filter = 1
 material = ExtResource("19_clean_material")
-custom_minimum_size = Vector2(280, 105)
+custom_minimum_size = Vector2(280, 104)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("sb_cont_normal")
@@ -442,7 +454,7 @@ theme_override_styles/disabled = SubResource("sb_cont_disabled")
 [node name="SettingsButton" type="Button" parent="PauseMenu/Overlay/ColorRect/CenterContainer/VBoxContainer"]
 texture_filter = 1
 material = ExtResource("19_clean_material")
-custom_minimum_size = Vector2(280, 105)
+custom_minimum_size = Vector2(280, 104)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("sb_pset_normal")
@@ -455,7 +467,7 @@ theme_override_styles/disabled = SubResource("sb_pset_disabled")
 [node name="ExitToMenuButton" type="Button" parent="PauseMenu/Overlay/ColorRect/CenterContainer/VBoxContainer"]
 texture_filter = 1
 material = ExtResource("19_clean_material")
-custom_minimum_size = Vector2(280, 105)
+custom_minimum_size = Vector2(280, 104)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("sb_pquit_normal")

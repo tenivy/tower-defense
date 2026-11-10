@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bobjbupbyca4c"]
 
 [ext_resource type="Script" uid="uid://3cjsua3yd4yu" path="res://scripts/enemy.gd" id="1_pv6ds"]
+[ext_resource type="Script" path="res://scripts/werewolf_visual.gd" id="30_visual"]
 [ext_resource type="Texture2D" uid="uid://c1up8nw34378l" path="res://assets/werewolf/front/1.png0002.png" id="2_pv6ds"]
 [ext_resource type="Texture2D" uid="uid://c8l5k8wwbea3t" path="res://assets/werewolf/front/1.png0005.png" id="3_o0nqw"]
 [ext_resource type="Texture2D" uid="uid://osl2tgq22rfw" path="res://assets/werewolf/front/1.png0008.png" id="4_ms3px"]
@@ -157,3 +158,4 @@ scale = Vector2(0.1, 0.1)
 sprite_frames = SubResource("SpriteFrames_mvgdh")
 animation = &"walk_left"
 speed_scale = 0.5
+script = ExtResource("30_visual")

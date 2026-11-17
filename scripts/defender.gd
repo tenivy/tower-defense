@@ -14,6 +14,7 @@ var upgrade_level: int = 1
 
 @export var can_upgrade: bool = true
 @export var cost: int = 100
+@export var attack_sound: StringName = &"sword"
 @export var damage: int = 20
 @export var attack_cooldown: float = 1.0
 @export var attack_range: float = 100.0
@@ -91,6 +92,9 @@ func find_nearest_enemy():
 	return best_enemy
 
 func attack(enemy):
+	if is_preview or not is_instance_valid(enemy) or enemy.is_dead:
+		return
+	SoundManager.play(attack_sound)
 	if uses_projectile and projectile_scene:
 		var projectile = projectile_scene.instantiate()
 		var projectiles = get_tree().current_scene.get_node("Projectiles")

@@ -16,7 +16,10 @@ config/features=PackedStringArray("4.7", "GL Compatibility")
 
 [autoload]
 
+AudioSettings="*res://scripts/audio_settings.gd"
 MusicManager="*res://scripts/music_manager.gd"
+SoundManager="*res://scripts/sound_manager.gd"
+SettingsOverlay="*res://scripts/settings_overlay.gd"
 
 [display]
 

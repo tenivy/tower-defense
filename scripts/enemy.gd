@@ -1,5 +1,6 @@
 extends Node2D
 
+const ANGER_SHADER = preload("res://assets/shaders/enemy_anger.gdshader")
 @onready var body = $Body
 @onready var animated_sprite = $Body/AnimatedSprite2D
 
@@ -7,6 +8,7 @@ extends Node2D
 @export var health: int = 100
 @export var reward: int = 10
 @export var castle_damage: int = 10
+@export var voice_sound: StringName = &""
 
 # Параметры визуального эффекта получения урона
 @export var shake_duration: float = 0.25
@@ -26,9 +28,32 @@ var current_facing: String = "down"
 var body_start_position: Vector2
 var damage_tween: Tween
 var is_dead: bool = false
+var variant_tier: int = 0
+
+
+func apply_variant(tier: int) -> void:
+	assert(not is_node_ready(), "Configure variants before adding the enemy to the tree")
+	variant_tier = clampi(tier, 0, WaveCatalog.TIERS.size() - 1)
+	var variant: Dictionary = WaveCatalog.TIERS[variant_tier]
+	health = roundi(health * variant.health)
+	speed *= variant.speed
+	reward = roundi(reward * variant.reward)
+	castle_damage = roundi(castle_damage * variant.damage)
+	# Scale the parent body, preserving the werewolf's independent facing correction.
+	var visual: Control = get_node("Body")
+	visual.pivot_offset = Vector2(15, 55)
+	visual.scale = Vector2.ONE * variant.size
+	if variant.angry:
+		var rage := ShaderMaterial.new()
+		rage.shader = ANGER_SHADER
+		get_node("Body/AnimatedSprite2D").material = rage
 
 func _ready():
-	add_to_group("enemies")
+	# The legacy off-map test instance has no path and must never consume attacks or wave counts.
+	if path_points.is_empty():
+		remove_from_group("enemies")
+	else:
+		add_to_group("enemies")
 	body_start_position = body.position
 	animated_sprite.play("walk_" + current_facing)
 
@@ -37,7 +62,9 @@ func setup_path(points: PackedVector2Array):
 	current_point = 0
 
 	if path_points.size() > 0:
+		add_to_group("enemies")
 		global_position = path_points[0]
+		SoundManager.play(voice_sound)
 
 
 func _process(delta):
@@ -80,6 +107,7 @@ func take_damage(amount: int):
 	if health <= 0:
 		die()
 	else:
+		SoundManager.play(voice_sound)
 		play_damage_effect()
 
 
@@ -179,6 +207,9 @@ func play_death_explosion():
 func reach_castle():
 	if is_dead:
 		return
+	# queue_free is deferred: remove it from combat immediately to prevent a second finish/reward.
+	is_dead = true
+	remove_from_group("enemies")
 
 	var main = get_tree().current_scene
 

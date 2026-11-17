@@ -452,7 +452,7 @@ animations = [{
 [node name="Defender" type="Node2D" unique_id=1499472190]
 rotation = -1.5707964
 script = ExtResource("1_hl4wy")
-cost = 20
+cost = 50
 idle_frame = 2
 
 [node name="AttackRange2" type="Line2D" parent="." unique_id=1206263078]

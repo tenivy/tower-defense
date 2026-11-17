@@ -74,8 +74,10 @@ func _reset_loading_state() -> void:
 
 
 func _on_settings_pressed() -> void:
-	print("Настройки в разработке")
+	if not _is_loading:
+		SettingsOverlay.open(settings_button)
 
 
 func _on_quit_pressed() -> void:
+	AudioSettings.save_settings()
 	get_tree().quit()

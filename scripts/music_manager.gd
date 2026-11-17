@@ -26,6 +26,7 @@ func _ready() -> void:
 		player.name = String(track).capitalize() + "Music"
 		player.stream = stream
 		player.pitch_scale = 1.0
+		player.bus = &"Music"
 		player.volume_db = -80.0
 		add_child(player)
 		_players[track] = player

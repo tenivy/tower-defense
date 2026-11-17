@@ -162,6 +162,7 @@ attack_range_by_level = [250.0, 250.0, 250.0]
 attack_cooldown_by_level = [2.5, 2.5, 2.5]
 can_upgrade = false
 cost = 500
+attack_sound = &"catapult"
 damage = 100
 attack_cooldown = 2.5
 attack_range = 250.0

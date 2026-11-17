@@ -17,6 +17,8 @@ func _ready() -> void:
 
 
 func _input(event) -> void:
+	if SettingsOverlay.is_open():
+		return
 	# Закрываем паузу по Escape, только если она уже открыта
 	if event is InputEventKey:
 		if event.pressed and event.keycode == KEY_ESCAPE and overlay.visible:
@@ -41,7 +43,7 @@ func _on_continue_pressed() -> void:
 
 
 func _on_settings_pressed() -> void:
-	print("Настройки в разработке")
+	SettingsOverlay.open(settings_button)
 
 
 func _on_exit_to_menu_pressed() -> void:

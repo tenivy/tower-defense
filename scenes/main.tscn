@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://4m04d3dtceh8" path="res://scripts/main.gd" id="1_tbgi4"]
 [ext_resource type="Script" path="res://scripts/pause_menu.gd" id="6_pause"]
 [ext_resource type="PackedScene" uid="uid://d3hhl01wtkq11" path="res://scenes/defender.tscn" id="2_tefeu"]
-[ext_resource type="Texture2D" path="res://assets/IMG_2027.PNG" id="3_o6xl0"]
 [ext_resource type="Texture2D" uid="uid://2mg16rywqokl" path="res://assets/background/5.png0021.png" id="4_tipki"]
 [ext_resource type="PackedScene" uid="uid://d2r3d4jv3a2xr" path="res://scenes/enemy.tscn" id="5_85g3d"]
 [ext_resource type="Texture2D" path="res://assets/menu/Продолжить.png" id="7_pcont"]
@@ -20,6 +19,7 @@
 [ext_resource type="PackedScene" path="res://scenes/defeat_menu.tscn" id="18_defeat"]
 [ext_resource type="Material" path="res://assets/ui/menu/clean-menu-art.tres" id="19_clean_material"]
 [ext_resource type="Script" path="res://scripts/placement_map.gd" id="20_placement"]
+[ext_resource type="PackedScene" path="res://scenes/victory_menu.tscn" id="21_victory"]
 
 [sub_resource type="StyleBoxEmpty" id="sb_menu_focus"]
 
@@ -117,7 +117,6 @@ metadata/_edit_use_anchors_ = true
 [node name="Sprite2D" type="Sprite2D" parent="Map/Castle" unique_id=1346091568]
 position = Vector2(115.99996, 117.00006)
 scale = Vector2(0.276, 0.284)
-texture = ExtResource("3_o6xl0")
 
 [node name="ColorRect" type="ColorRect" parent="Map" unique_id=1929383278]
 offset_left = 124.0
@@ -478,3 +477,5 @@ theme_override_styles/focus = SubResource("sb_menu_focus")
 theme_override_styles/disabled = SubResource("sb_pquit_disabled")
 
 [node name="DefeatMenu" parent="." instance=ExtResource("18_defeat")]
+
+[node name="VictoryMenu" parent="." instance=ExtResource("21_victory")]

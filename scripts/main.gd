@@ -27,6 +27,10 @@ var defender_click_radius = 25
 var castle_health = 100
 var castle_max_health = 100
 var defeat_shown: bool = false
+var campaign_complete: bool = false
+var free_play: bool = false
+var victory_pending: bool = false
+var active_wave: Dictionary = {}
 
 var archer_scene = preload("res://scenes/archer.tscn")
 var placement_scene: PackedScene = null
@@ -41,7 +45,7 @@ var enemies_remaining = 0
 var spawn_interval = 1.5
 var round_reward = 50
 
-var gold = 100
+var gold = 150
 var upgrade_costs_by_level = [50, 100]
 
 func update_gold_label():
@@ -57,6 +61,7 @@ func _ready():
 	$DefenderPanel.visible = false
 
 func _exit_tree() -> void:
+	SoundManager.stop_game_sounds()
 	# Speed is local to this game session, not the menu or the next game.
 	Engine.time_scale = 1.0
 
@@ -173,6 +178,8 @@ func _input(event):
 
 # Escape в игре открывает меню паузы (закрывает его pause_menu.gd)
 func _unhandled_input(event):
+	if victory_pending:
+		return
 	if event is InputEventKey:
 		if event.pressed and event.keycode == KEY_ESCAPE:
 			$PauseMenu.open_pause()
@@ -192,7 +199,7 @@ func place_defender(map_position: Vector2):
 	selected_defender = false
 
 func damage_castle(amount: int):
-	if defeat_shown:
+	if defeat_shown or victory_pending:
 		return
 	castle_health -= amount
 
@@ -271,12 +278,13 @@ func _on_knight_button_pressed():
 	select_knight()
 
 func spawn_enemy():
-	if enemies_spawned >= enemies_to_spawn:
+	if not round_in_progress or enemies_spawned >= enemies_to_spawn:
 		return
 
-	var enemy_scene = get_enemy_scene()
-
+	var entry: Dictionary = active_wave.enemies[enemies_spawned]
+	var enemy_scene: PackedScene = werewolf_scene if entry.species == 1 else goblin_scene
 	var enemy = enemy_scene.instantiate()
+	enemy.apply_variant(int(entry.tier))
 	$Enemies.add_child(enemy)
 
 	var points = enemy_path.get_global_transform() * enemy_path.points
@@ -285,16 +293,20 @@ func spawn_enemy():
 	enemies_spawned += 1
 
 func start_round():
-	if round_in_progress or castle_health <= 0:
+	if round_in_progress or castle_health <= 0 or victory_pending or (current_round >= WaveCatalog.LAST_CAMPAIGN_WAVE and not free_play):
 		return
 
 	$AutoStartTimer.stop()
 	round_in_progress = true
 	current_round += 1
+	active_wave = WaveCatalog.get_wave(current_round)
 	update_round_label()
 	$Shop.set_collapsed(true)
 
-	enemies_to_spawn = 5 + (current_round - 1) * 2
+	enemies_to_spawn = active_wave.enemies.size()
+	spawn_interval = active_wave.interval
+	round_reward = active_wave.reward
+	$SpawnTimer.wait_time = spawn_interval
 	enemies_spawned = 0
 	enemies_remaining = enemies_to_spawn
 
@@ -320,6 +332,8 @@ func add_gold(amount: int):
 	print("Получено золота: ", amount, " | Всего: ", gold)
 
 func enemy_finished():
+	if not round_in_progress or defeat_shown:
+		return
 	enemies_remaining -= 1
 
 	print("Осталось врагов: ", enemies_remaining)
@@ -336,6 +350,28 @@ func end_round():
 
 	print("Раунд ", current_round, " завершён!")
 	print("Награда за раунд: ", round_reward)
+	if current_round == WaveCatalog.LAST_CAMPAIGN_WAVE and not campaign_complete:
+		campaign_complete = true
+		victory_pending = true
+		$SpawnTimer.stop()
+		$AutoStartTimer.stop()
+		cancel_defender_placement()
+		deselect_placed_defender()
+		$PauseMenu/Overlay.hide()
+		MusicManager.set_danger_active(false)
+		update_round_label()
+		$VictoryMenu.show_victory()
+		return
+	_queue_auto_start()
+
+
+func enter_free_play() -> void:
+	if not campaign_complete or defeat_shown or not victory_pending:
+		return
+	victory_pending = false
+	free_play = true
+	$Shop.set_collapsed(false)
+	update_round_label()
 	_queue_auto_start()
 
 func _on_auto_start_toggled(enabled: bool) -> void:
@@ -346,11 +382,11 @@ func _on_auto_start_toggled(enabled: bool) -> void:
 		$AutoStartTimer.stop()
 
 func _queue_auto_start() -> void:
-	if auto_start_enabled and not round_in_progress and castle_health > 0:
+	if auto_start_enabled and not round_in_progress and castle_health > 0 and not victory_pending:
 		$AutoStartTimer.start()
 
 func _on_auto_start_timer_timeout() -> void:
-	if auto_start_enabled and castle_health > 0:
+	if auto_start_enabled and castle_health > 0 and not victory_pending:
 		start_round()
 
 func _on_speed_toggled(enabled: bool) -> void:
@@ -368,8 +404,12 @@ func cancel_defender_placement():
 
 func update_round_label():
 	round_label.text = "Раунд " + str(current_round)
-	$Shop/StartRoundButton.disabled = round_in_progress
-	if round_in_progress:
+	round_label.tooltip_text = "Свободная игра" if free_play else "Кампания: 50 волн"
+	$Shop/StartRoundButton.disabled = round_in_progress or victory_pending
+	$Shop/StartRoundButton.tooltip_text = WaveCatalog.describe(current_round + 1) if not victory_pending else "Все 50 волн отражены"
+	if victory_pending:
+		$Shop/StartRoundButton.text = "Победа"
+	elif round_in_progress:
 		$Shop/StartRoundButton.text = "Раунд идёт"
 	else:
 		$Shop/StartRoundButton.text = "Начать раунд" if current_round == 0 else "Следующий раунд"
@@ -449,10 +489,3 @@ func update_upgrade_button():
 		var cost = upgrade_costs_by_level[level - 1]
 		$DefenderPanel/UpgradeButton.text = "Улучшить (" + str(cost) + ")"
 		$DefenderPanel/UpgradeButton.disabled = gold < cost
-
-# Выбирает сцену врага: шанс оборотня растёт с раундом
-func get_enemy_scene() -> PackedScene:
-	var werewolf_chance = clampf((current_round - 2) * 0.1, 0.0, 0.5)
-	if randf() < werewolf_chance:
-		return werewolf_scene
-	return goblin_scene

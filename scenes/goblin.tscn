@@ -139,6 +139,7 @@ animations = [{
 
 [node name="Goblin" type="Node2D" unique_id=884376071 groups=["enemies"]]
 script = ExtResource("1_fljwg")
+voice_sound = &"ogre"
 speed = 70.0
 health = 80
 
